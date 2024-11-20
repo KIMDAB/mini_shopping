@@ -10,7 +10,7 @@
         INSERT INTO board(title, content, writer) values(#{title}, #{content}, #{writer})
     </insert>
     <update id="updateOK">
-        UPDATE board title=#{title}, content=#{content}, writer=#{writer}
+        UPDATE board SET title=#{title}, content=#{content}, writer=#{writer}
     </update>
     <delete id="deleteOK">
         DELETE board WHERE num=#{num}

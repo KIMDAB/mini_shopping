@@ -12,4 +12,6 @@ public interface MemberMepper {
     public int insertOK(MemberVO vo);
 
     public List<MemberVO> selectAll(int cpage, int totalRow);
+
+    int updateOK(MemberVO vo);
 }

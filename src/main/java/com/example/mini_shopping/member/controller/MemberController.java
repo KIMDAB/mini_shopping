@@ -19,14 +19,14 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    @GetMapping("/member/view")
+    @GetMapping("/member/list")
     public String view(Model model, @RequestParam(defaultValue = "1")int cpage,
                        @RequestParam(defaultValue = "10")int pageBlcok){
         log.info("회원 목록");
         List<MemberVO> list = memberService.selectAll(cpage,pageBlcok);
         log.info("list:{}", list);
 
-        return "member/view";
+        return "member/list";
     }
 
     @GetMapping("/member/insert")
@@ -46,4 +46,25 @@ public class MemberController {
             return "member/insert";
         }
     }
+    @GetMapping("/member/update")
+    public String update(){
+        log.info("member update");
+
+        return "member/update";
+    }
+
+    @PostMapping("/member/updateOK")
+    public String updateOK(Model model, MemberVO vo){
+        log.info("member updateOK");
+        int result = memberService.updateOK(vo);
+
+        model.addAttribute("result", result);
+        if (result ==1){
+            return "member/detail?num="+vo.getNum();
+        }else{
+            return "member/update?num="+vo.getNum();
+        }
+    }
+
+
 }

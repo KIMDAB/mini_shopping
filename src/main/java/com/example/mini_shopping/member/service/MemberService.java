@@ -28,4 +28,10 @@ public class MemberService {
 
         return memberMepper.selectAll(cpage,totalRow);
     }
+
+    public int updateOK(MemberVO vo) {
+        log.info("member updateOK");
+
+        return memberMepper.updateOK(vo);
+    }
 }

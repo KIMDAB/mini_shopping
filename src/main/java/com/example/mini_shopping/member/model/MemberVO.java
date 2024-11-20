@@ -1,6 +1,9 @@
 package com.example.mini_shopping.member.model;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 @Data
 public class MemberVO {
@@ -10,4 +13,8 @@ public class MemberVO {
     private String name;
     private String tel;
     private String email;
+
+    private String imgName;
+    private File MultipartFile;
+
 }

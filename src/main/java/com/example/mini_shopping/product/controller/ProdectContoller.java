@@ -111,4 +111,7 @@ public class ProdectContoller {
 
         return "product/detail";
     }
+
+
+
 }

@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>상품 상세페이지</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body th:replace="~{layout :: layout}">
+<div th:fragment="content">
+    <div class="body-detail">
+        <h3 th:text="'브랜드 명:' +${vo2.brandName}"></h3>
+        <span th:text="${vo2.name}"></span>
+        <h5 th:text="'가격: ' +${vo2.price}"></h5>
+        <span th:text="'상세내용: ' +${vo2.content}"></span>
+    </div>
+
+</div>
 
 </body>
 </html>

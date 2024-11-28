@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>상품 목록</title>
+    <link href="/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body th:replace="~{layout :: layout}">
+<div th:fragment="content">
+    <div class="head">
+        <span>순서</span>
+        <span>브랜드명</span>
+        <span>상품명</span>
+        <span>상세내용</span>
+        <span>가격</span>
+    </div>
+    <div th:each="list : ${list}" class="body">
+        <a th:href="@{/product/detail?num=${list.num}}">
+            <span class="value" th:text="${list.num}"></span>
+            <span class="value" th:text="${list.brandName}"></span>
+            <span class="value" th:text="${list.name}"></span>
+            <span class="value" th:text="${list.content}"></span>
+            <span class="value" th:text="${list.price}"></span>
+            <a class="delete" th:href="|/product/delete?num=${list.num}|"> x </a>
+        </a>
+
+
+
+    </div>
+</div>
 
 </body>
 </html>

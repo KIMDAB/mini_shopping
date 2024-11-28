@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<head xmlns:th="http://www.thymeleaf.org">
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>회원 목록</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
+    <style>
+        .list-body{
+            margin: 30px;
+            word-spacing: 10px;
+            background-color: antiquewhite;
+            padding: 30px;
 
+
+        }
+        .values{
+            text-decoration-color: black;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        a{
+            text-decoration-line: none;
+        }
+
+        #bar{
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body th:replace="~{layout::layout}">
+<div th:fragment="content">
+    <div th:each="list : ${list}" class="list-body">
+        <a th:href="|/member/detail?num=${list.num}|">
+            <span class="values" th:text="${list.num}"></span>
+            <span class="values" th:text="${list.id}"></span>
+            <span class="values" th:text="${list.pw}"></span>
+            <span class="values" th:text="${list.name}"></span>
+            <span class="values" th:text="${list.tel}"></span>
+            <span class="values" th:text="${list.email}"></span>
+            <span id="bar">
+                <a th:href="|/member/deleteOK?num=${list.num}|">X</a>
+            </span>
+
+        </a>
+    </div>
+</div>
 </body>
 </html>

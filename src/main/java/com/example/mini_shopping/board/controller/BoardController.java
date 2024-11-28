@@ -29,7 +29,10 @@ public class BoardController {
         int totallists= boardService.getListCnt();
         int totalPages = (int)Math.ceil((double)totallists/pageBlock);
         log.info("list:{}", list);
+
         model.addAttribute("list", list);
+        model.addAttribute("cpage", cpage);
+        model.addAttribute("totalPages", totalPages);
 
         return "board/list";
     }
@@ -47,9 +50,9 @@ public class BoardController {
 
         int result = boardService.insertOK(vo);
         if (result ==1){
-            return "member/list";
+            return "redirect:/board/list";
         }else{
-            return "board/insert";
+            return "error";
         }
     }
 
@@ -67,9 +70,9 @@ public class BoardController {
         int result = boardService.updateOK(vo);
 
         if (result ==1){
-            return "board/detail?num="+ vo.getNum();
+            return "redirect:/board/detail?num="+ vo.getNum();
         }else{
-            return "board/update?num"+ vo.getNum();
+            return "redirect:/board/update?num"+ vo.getNum();
         }
     }
 
@@ -78,7 +81,10 @@ public class BoardController {
         log.info("board delete");
 
         int result = boardService.deleteOK(vo);
-
-        return "board/list";
+        if (result==1){
+            return "redirect:/board/list";
+        }else{
+            return "error";
+        }
     }
 }

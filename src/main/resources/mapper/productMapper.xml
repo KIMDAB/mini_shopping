@@ -5,6 +5,13 @@
     <select id="selectAll" resultType="com.example.mini_shopping.product.model.ProductVO">
         SELECT * FROM product ORDER BY num desc
     </select>
+    <select id="getListCnt" resultType="int">
+        SELECT COUNT(*) FROM MEMBER
+    </select>
+
+    <select id="selectOne" resultType="com.example.mini_shopping.product.model.ProductVO">
+        SELECT * FROM product WHERE NUM=#{num}
+    </select>
 
     <insert id="insertOK">
         INSERT INTO product(brandName, name, content, price, user_id)

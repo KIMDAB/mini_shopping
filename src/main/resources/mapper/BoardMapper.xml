@@ -5,6 +5,9 @@
     <select id="selectAll" resultType="com.example.mini_shopping.board.model.BoardVO">
         SELECT * FROM board order by num desc
     </select>
+    <select id="getListCnt" resultType="int">
+        SELECT COUNT(*) FROM BOARD
+    </select>
 
     <insert id="insertOK">
         INSERT INTO board(title, content, writer) values(#{title}, #{content}, #{writer})

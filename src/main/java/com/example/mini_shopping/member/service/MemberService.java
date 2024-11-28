@@ -34,4 +34,34 @@ public class MemberService {
 
         return memberMepper.updateOK(vo);
     }
+
+    public int getPageCnt() {
+        log.info("member list getPageCnt");
+
+        return memberMepper.getPageCnt();
+    }
+
+    public MemberVO selectOne(MemberVO vo) {
+        log.info("member selectOne");
+
+        return memberMepper.selectOne(vo);
+    }
+
+    public MemberVO idCheck(MemberVO vo) {
+        log.info("idCheck");
+
+        return memberMepper.idCheck(vo);
+    }
+
+    public MemberVO loginOK(MemberVO vo) {
+        log.info("loginOK");
+
+        return memberMepper.loginOK(vo);
+    }
+
+    public int deleteOK(int num) {
+        log.info("member delete");
+
+        return memberMepper.deleteOK(num);
+    }
 }

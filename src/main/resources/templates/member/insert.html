@@ -2,9 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원가입</title>
+    <style>
+        form{
+            align-items: center;
+            font-size: 20px;
+            padding: 30px;
+        }
+    </style>
 </head>
 <body>
+<form action="/member/insertOK" method="POST">
+    <p>
+        <label for="id">id</label>
+        <input type="text" name="id" id="id" value="admin">
+        <button id="idcheck">아이디체크</button>
+    </p>
+    <p>
+        <label for="pw">pw</label>
+        <input type="text" name="pw" id="pw" value="hi1234">
+    </p>
+    <p>
+        <label for="name">name</label>
+        <input type="text" name="name" id="name" value="kim11">
+    </p>
+    <p>
+        <label for="tel">tel</label>
+        <input type="text" name="tel" id="tel" value="010-3304">
+    </p>
+    <p>
+        <label for="email">email</label>
+        <input type="text" name="email" id="email" value="kim@naver.com">
+    </p>
+    <button type="submit">회원가입</button>
 
+</form>
+<script>
+    $(function (){
+        console.log("idcheck")
+        $("#idcheck").click(function (){
+            let url2= "http://localhost:8082/member/insert/idCheck"
+
+            $.ajax ({
+                url : url2,
+                type :"Get",
+                data : {
+                    id : $("#id").val()
+                },
+                dataType : "json",
+                success : function (response){
+                    console.log(response);
+
+                    let message ='';
+                    if (response.result === 'OK'){
+                        message = '사용가능한 아이디입니다';
+                    }else{
+                        message = '중복된 아이디입니다'
+                    }
+                    $("#result").html(message);
+                }
+            })
+        })
+    })
+</script>
 </body>
 </html>

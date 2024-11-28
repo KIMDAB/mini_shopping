@@ -1,11 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>home</title>
+  <style>
+    a{
+      border-radius: 30px;
+      background-color: cyan;
+      text-decoration-color: black;
+      margin: 20px;
+    }
+  </style>
 </head>
 <body>
-<a href=""></a>
-
+<a href="/member/list" >회원목록</a>
+<a href="/member/insert">회원가입</a>
+<a href="/board/list">게시판목록</a>
+<a href="/board/insert">게시판 작성</a>
+<a href="/product/list">상품목록</a>
+<a href="/product/insert">상품 작성</a>
 </body>
 </html>

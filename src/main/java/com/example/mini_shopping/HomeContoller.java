@@ -10,9 +10,10 @@ public class HomeContoller {
 
     @GetMapping("/")
     public String home(){
-
         log.info("index page");
 
         return "index";
     }
+
+
 }

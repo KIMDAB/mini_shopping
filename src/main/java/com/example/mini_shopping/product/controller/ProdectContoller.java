@@ -1,5 +1,7 @@
 package com.example.mini_shopping.product.controller;
 
+import com.example.mini_shopping.member.model.MemberVO;
+import com.example.mini_shopping.member.service.MemberService;
 import com.example.mini_shopping.product.model.ProductVO;
 import com.example.mini_shopping.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,8 @@ public class ProdectContoller {
 
     @Autowired
     ProductService productService;
+    @Autowired
+    private MemberService memberService;
 
     @GetMapping("/product/list")
     public String list(Model model, @RequestParam(defaultValue = "1")int cpage,
@@ -51,7 +55,7 @@ public class ProdectContoller {
         int result = productService.insertOK(vo);
 
         if (result ==1){
-            return "product/list";
+            return "redirect:/product/list";
         }else{
             return "product/insert";
         }
@@ -92,5 +96,19 @@ public class ProdectContoller {
         }else{
             return "product/detail?num="+vo.getNum();
         }
+    }
+
+    @GetMapping("/product/detail")
+    public String detail(Model model, ProductVO vo){
+        log.info("product detail");
+
+        log.info("vo:{}", vo);
+
+        ProductVO vo2 = productService.selectOne(vo);
+        log.info("vo2:{}", vo2);
+
+        model.addAttribute("vo2", vo2);
+
+        return "product/detail";
     }
 }

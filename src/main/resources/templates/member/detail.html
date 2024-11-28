@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>마이페이지</title>
 </head>
-<body>
+<body th:replace="~{layout :: layout}">
+<div th:fragment="content">
+    <H3>마이페이지</H3>
+    <div>
+        <label>ID: </label>
+        <span th:text="${vo2.id}"></span>
+    </div>
+<div>
+    <label>PW: </label>
+    <span th:text="${vo2.pw}"></span>
+</div>
+<div>
+    <label>NAME: </label>
+    <span th:text="${vo2.name}"></span>
+</div>
+<div>
+    <label>TEL: </label>
+    <span th:text="${vo2.tel}"></span>
+</div>
+<div>
+    <label>EMAIL: </label>
+    <span th:text="${vo2.email}"></span>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+</head>
+<body th:replace="~{layout :: layout}">
+<form action="/member/login" method="get" th:fragment="content">
+    <p>
+        <label for="id">id</label>
+        <input type="text" name="id" id="id" value="admin">
+    </p>
+    <p>
+        <label for="pw">pw</label>
+        <input type="text" name="pw" id="pw" value="hi1234">
+    </p>
+    <button type="submit">로그인</button>
+</form>
+</body>
+</html>

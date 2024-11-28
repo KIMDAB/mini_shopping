@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
-<body>
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        #body{
+            align-items: center;
+            font-size: 20px;
+            justify-items: center;
+        }
+        #btn{
+            font-size: 20px;
+            width: 100px;
+            height: 50px;
+            font-weight: bold;
+            background-color: brown;
+            border-radius: 30px;
+        }
 
+    </style>
+</head>
+<body th:replace="~{layout :: layout}">
+<div th:fragment="content" >
+    <form action="/product/insertOK" method="post" id="body">
+        <p>
+            <label for="img">상품이미지</label>
+            <input type="image" id="img" name="img">
+        </p>
+        <p>
+            <label for="brandName">브랜드명</label>
+            <input type="text" id="brandName" name="brandName" th:value="LFM">
+        </p>
+        <p>
+            <label for="name">상품명</label>
+            <input type="text" id="name" name="name" th:value="woolcardigon">
+        </p>
+        <p>
+            <label for="content">상품 설명</label>
+            <textarea  id="content" name="content" th:text="길이는100cm"></textarea>
+        </p>
+        <p>
+            <label for="price">가격</label>
+            <input type="text" id="price" name="price" th:value="218000">
+        </p>
+        <p>
+            <input type="hidden" id="user_id" name="user_id" th:value="admin">
+        </p>
+            <button id="btn" type="submit">제출</button>
+    </form>
+</div>
 </body>
 </html>

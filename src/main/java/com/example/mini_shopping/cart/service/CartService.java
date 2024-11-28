@@ -23,6 +23,8 @@ public class CartService {
     }
 
     public void insert(CartVO vo) {
-        return cartMapper.insert(vo);
+        log.info("cart insert");
+
+        cartMapper.insert(vo);
     }
 }

@@ -9,6 +9,10 @@
         SELECT COUNT(*) FROM BOARD
     </select>
 
+    <select id="selectOne" resultType="com.example.mini_shopping.board.model.BoardVO">
+        SELECT * FROM BOARD WHERE NUM=#{num}
+    </select>
+
     <insert id="insertOK">
         INSERT INTO board(title, content, writer) values(#{title}, #{content}, #{writer})
     </insert>

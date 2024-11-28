@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>게시판 목록</title>
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
-    <div th:each=" list : ${list}">
+    <div th:each=" list : ${list}" class="body">
         <a th:href="|/board/detail?num=${list.num}|">
             <span th:text="${list.num}"></span>
             <span th:text="${list.title}"></span>

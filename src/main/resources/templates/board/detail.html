@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body th:replace="~{layout :: layout}">
+<div th:fragment="content">
+    <div class="body">
+        <h3 th:text="${vo2.title}"></h3>
+        <p>
+            <small th:text="${vo2.wdate}"></small>
+        </p>
+        <p>
+            <span th:text="${vo2.content}"></span>
+        </p>
 
+    </div>
+</div>
 </body>
 </html>

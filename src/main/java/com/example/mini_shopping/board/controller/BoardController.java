@@ -37,6 +37,17 @@ public class BoardController {
         return "board/list";
     }
 
+    @GetMapping("/board/detail")
+    public String detail(Model model, BoardVO vo){
+        log.info("board detail page");
+
+        BoardVO vo2 = boardService.selectOne(vo);
+
+        model.addAttribute("vo2", vo2);
+
+        return "board/detail";
+    }
+
     @GetMapping("/board/insert")
     public String insert(){
         log.info("board insert");

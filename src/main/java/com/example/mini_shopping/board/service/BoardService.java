@@ -45,4 +45,10 @@ public class BoardService {
 
         return boardMapper.deleteOK(vo);
     }
+
+    public BoardVO selectOne(BoardVO vo) {
+        log.info("board selectOne");
+
+        return boardMapper.selectOne(vo);
+    }
 }

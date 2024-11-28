@@ -5,6 +5,7 @@
     background-color: burlywood;
     margin: 20px;
     text-decoration-color: black;
+    text-align: center;
 }
 .delete{
     text-decoration-line: none;
@@ -23,9 +24,6 @@
 }
 a{
     text-decoration-line: none;
-}
-.body > a{
-    color: black;
 }
 .body-detail{
     justify-content: right;

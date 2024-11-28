@@ -20,6 +20,6 @@
         UPDATE board SET title=#{title}, content=#{content}, writer=#{writer}
     </update>
     <delete id="deleteOK">
-        DELETE board WHERE num=#{num}
+        DELETE FROM board WHERE num=#{num}
     </delete>
 </mapper>

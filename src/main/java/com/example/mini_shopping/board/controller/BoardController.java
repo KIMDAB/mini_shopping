@@ -87,7 +87,7 @@ public class BoardController {
         }
     }
 
-    @PostMapping("/board/deleteOK")
+    @GetMapping("/board/deleteOK")
     public String deleteOK(BoardVO vo){
         log.info("board delete");
 

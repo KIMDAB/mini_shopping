@@ -25,6 +25,9 @@
 a{
     text-decoration-line: none;
 }
+.body > a{
+    color: black;
+}
 .body-detail{
     justify-content: right;
     align-items: center;

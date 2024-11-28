@@ -13,6 +13,7 @@
             <span th:text="${list.title}"></span>
             <span th:text="${list.content}"></span>
             <span th:text="${list.wdate}"></span>
+            <a class="delete" th:href="|/board/deleteOK?num=${list.num}|">X</a>
         </a>
     </div>
 </div>

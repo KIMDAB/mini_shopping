@@ -27,4 +27,16 @@ public class CartService {
 
         cartMapper.insert(vo);
     }
+
+    public void update(CartVO vo) {
+        log.info("cart update");
+
+        cartMapper.update(vo);
+    }
+
+    public void delete(CartVO vo) {
+        log.info("cart delete");
+
+        cartMapper.delete(vo);
+    }
 }

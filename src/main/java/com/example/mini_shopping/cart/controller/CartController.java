@@ -41,4 +41,20 @@ public class CartController {
 
         return "cart/cartView";
     }
+
+    @GetMapping("/cart/update")
+    public String update(Model model, CartVO vo){
+        log.info("cart update");
+
+        cartService.update(vo);
+
+        return "rediect:/cart/cartView";
+    }
+    @GetMapping("/cart/delete")
+    public String delete(CartVO vo){
+
+        cartService.delete(vo);
+
+        return "rediect:/cart/cartView";
+    }
 }

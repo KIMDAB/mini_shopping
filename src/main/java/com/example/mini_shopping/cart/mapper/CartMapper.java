@@ -12,4 +12,8 @@ public interface CartMapper {
     List<CartVO> cartFindById(String id);
 
     void insert(CartVO vo);
+
+    void update(CartVO vo);
+
+    void delete(CartVO vo);
 }

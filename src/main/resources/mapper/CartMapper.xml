@@ -6,4 +6,14 @@
         SELECT * FROM CART WHERE ID=#{id}
     </select>
 
+    <insert id="insert">
+        INSERT INTO CART(pName, price, count) VALUES (#{pName}, #{price}, #{count})
+    </insert>
+    <update id="update">
+        UPDATE CART SET pName=#{pName}, price=#{price}, count=#{count}
+    </update>
+    <delete id="delete">
+        DELETE FROM CART WHERE NUM=#{num}
+    </delete>
+
 </mapper>

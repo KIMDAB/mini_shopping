@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="/css/style.css" rel="stylesheet">
 </head>
-<style>
-    #footer{
-        justify-items: center;
-        align-items: center;
-        text-align: center;
-    }
-</style>
 <body>
 <footer th:fragment="footer" >
-    <h3 id="footer">shopping mall</h3>
+    <div id="footer">
+        <h3 >shopping mall</h3>
+        <a href="/board/list">notice</a>
+        <a href="/logout">logout</a>
+        <small>1:1 문의사항은 게시판을 통해 문의부탁드립니다.</small>
+    </div>
+
 </footer>
 </body>
 </html>

@@ -7,8 +7,11 @@
 </head>
 <body>
 <div th:fragment="header">
-    <a href="/">🔵HOME</a>
-    <a href="/login">로그인</a>
+    <a th:class="index_a" th:href="|/home|">HOME</a>
+    <div th:class="index_div">
+        <a href="/login" th:text="로그인"></a> /
+        <a href="/member/insert" th:text="회원가입"></a>
+    </div>
     </div>
 
 </div>

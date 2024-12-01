@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FIND PASSWORD</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body th:replace="~{layout :: layout}">
+<div th:fragment="content"  >
+    <form action="/user/findbyPwOK" method="post" class="login">
+        <p>
+            <small>ID</small>
+            <input th:class="input_a" type="text" id="id" name="id">
+        </p>
+        <hr style="width: 200px">
+        <p>
+            <small>NAME</small>
+            <input th:class="input_a" type="text" id="name" name="name">
+        </p>
+        <hr style="width: 200px">
+        <p>
+            <small>EMAIL</small>
+            <input th:class="input_a" type="text" id="email" name="email">
+        </p>
+        <hr style="width: 200px">
+        <button class="delete" type="submit">확인</button>
+    </form>
+
+</div>
+
+</body>
+</html>

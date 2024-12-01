@@ -2,6 +2,7 @@ package com.example.mini_shopping.member.controller;
 
 import com.example.mini_shopping.member.model.MemberVO;
 import com.example.mini_shopping.member.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -101,19 +102,12 @@ public class MemberController {
 
     @GetMapping("/idCheck")
     @ResponseBody
-    public Map<String, String> idCheck(@RequestParam  String Id, MemberVO vo){
+    public String idCheck(@RequestParam  String id){
 
         log.info("idCheck");
 
-        MemberVO vo2 = memberService.idCheck(vo);
-        Map<String, String> map = new HashMap<String, String>();
-        if(vo2 != null){
-            map.put("result", "이미 존재하는 아이디입니다");
-        }else{
-            map.put("result", "사용가능한 아이디입니다");
-        }
-
-        return map;
+       boolean isExist = memberService.idCheck(id);
+       return isExist ? "해당 아이디가 존재합니다" : "사용가능한 아이디입니다";
     }
 
     @GetMapping("/loginOK")
@@ -123,13 +117,57 @@ public class MemberController {
         MemberVO vo2 = memberService.loginOK(vo);
         log.info("vo2:{}", vo2);
 
-        return "";
+        return "index";
     }
     @GetMapping("/login")
     public String login(){
         log.info("login page");
 
-        return "member/login";
+        return "user/login";
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        log.info("logout");
+
+        session.invalidate();//로그아웃 로그인 무효화
+
+        return "redirect:/home";
+    }
+
+    @GetMapping("/user/findbyPw")
+    public String findbyPw(){
+        log.info("findbyPw");
+
+        return "user/findbyPw";
+    }
+    @PostMapping("/user/findbyPwOK")
+    public String findbyPwOK(MemberVO vo){
+        log.info("findbyPwOK");
+
+        memberService.findbyPwOK(vo);
+
+        return "redirect:/member/login";
+    }
+    @GetMapping("/user/findbyId")
+    public String findbyId(){
+        log.info("findbyPw");
+
+        return "/user/findbyId";
+    }
+    @PostMapping("/user/findbyIdOK")
+    public String findbyIdOK(MemberVO vo){
+        log.info("findbyPwOK");
+
+        memberService.findbyIdOK(vo);
+
+        return "redirect:/member/login";
+    }
+
+    @GetMapping("/kakao")
+    public String kakaologin(){
+        log.info("kakao login");
+
+        return "";
     }
 
 

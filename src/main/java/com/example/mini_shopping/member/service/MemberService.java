@@ -47,10 +47,10 @@ public class MemberService {
         return memberMepper.selectOne(vo);
     }
 
-    public MemberVO idCheck(MemberVO vo) {
+    public boolean idCheck(String id) {
         log.info("idCheck");
 
-        return memberMepper.idCheck(vo);
+        return memberMepper.idCheck(id);
     }
 
     public MemberVO loginOK(MemberVO vo) {
@@ -63,5 +63,17 @@ public class MemberService {
         log.info("member delete");
 
         return memberMepper.deleteOK(num);
+    }
+
+    public void findbyPwOK(MemberVO vo) {
+        log.info("findbyPwOK");
+
+        memberMepper.findbyPwOK(vo);
+    }
+
+    public void findbyIdOK(MemberVO vo) {
+        log.info("findbyIdOK");
+
+        memberMepper.findbyIdOK(vo);
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 public class HomeContoller {
 
-    @GetMapping("/")
+    @GetMapping({"/", "/home"})
     public String home(){
         log.info("index page");
 

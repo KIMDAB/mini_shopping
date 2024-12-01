@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>로그인</title>
+    <title>LOG IN</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body th:replace="~{layout :: layout}">
@@ -27,8 +27,8 @@
 </form>
     <div th:class="align-items">
         <span>
-            <a href="/user/findbypw" th:class="findpw">FORGOT ID</a> /
-            <a href="/user/findbypw" th:class="findpw">FORGOT PASSWORD</a>
+            <a href="/user/findbyId" th:class="findpw">FORGOT ID</a> /
+            <a href="/user/findbyPw" th:class="findpw">FORGOT PASSWORD</a>
         </span>
         <p>
         <a th:href="@{/kakao}" ><img src="/setting/kakao_login_medium_narrow.png"></a>

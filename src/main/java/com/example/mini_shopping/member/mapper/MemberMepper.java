@@ -19,9 +19,13 @@ public interface MemberMepper {
 
     MemberVO selectOne(MemberVO vo);
 
-    MemberVO idCheck(MemberVO vo);
+    boolean idCheck(String id);
 
     MemberVO loginOK(MemberVO vo);
 
     int deleteOK(int num);
+
+    void findbyPwOK(MemberVO vo);
+
+    void findbyIdOK(MemberVO vo);
 }

@@ -3,18 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body th:replace="~{layout :: layout}">
-<form action="/member/login" method="get" th:fragment="content">
+<div th:fragment="content" >
+<form action="/member/loginOK" method="post" class="login" >
     <p>
-        <label for="id">id</label>
-        <input type="text" name="id" id="id" value="admin">
+        <label for="id">ID</label>
+        <div>
+            <input class="input_a" type="text" name="id" id="id" value="admin">
+        </div>
+        <hr width="200px">
     </p>
     <p>
-        <label for="pw">pw</label>
-        <input type="text" name="pw" id="pw" value="hi1234">
+        <label for="pw">password</label>
+        <div>
+            <input class="input_a" type="text" name="pw" id="pw" value="hi1234">
+        </div>
+    <hr width="200px">
+
     </p>
-    <button type="submit">로그인</button>
+    <button th:class="loginbtn" type="submit" th:text="로그인"></button>
 </form>
+    <div th:class="align-items">
+        <span>
+            <a href="/user/findbypw" th:class="findpw">FORGOT ID</a> /
+            <a href="/user/findbypw" th:class="findpw">FORGOT PASSWORD</a>
+        </span>
+        <p>
+        <a th:href="@{/kakao}" ><img src="/setting/kakao_login_medium_narrow.png"></a>
+        </p>
+    </div>
+</div>
+
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 </body>
 </html>

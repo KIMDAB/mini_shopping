@@ -50,7 +50,9 @@ public class MemberService {
     public boolean idCheck(String id) {
         log.info("idCheck");
 
-        return memberMepper.idCheck(id);
+        int count = memberMepper.idCheck(id);
+
+        return count > 0;
     }
 
     public MemberVO loginOK(MemberVO vo) {

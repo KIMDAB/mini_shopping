@@ -15,6 +15,6 @@ public class MemberVO {
     private String email;
 
     private String profile;
-    private File MultipartFile;
+    private MultipartFile file;
 
 }

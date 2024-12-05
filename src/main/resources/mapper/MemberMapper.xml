@@ -17,7 +17,7 @@
     </select>
 
     <insert id="insertOK">
-        INSERT INTO member(id, pw, tel, name, email) values(#{id}, #{pw}, #{tel}, #{name}, #{email})
+        INSERT INTO member(id, pw, tel, name, email, profile) values(#{id}, #{pw}, #{tel}, #{name}, #{email}, #{profile})
     </insert>
     <update id="updateOK">
         UPDATE member SET id=#{id}, pw=#{pw}, tel=#{tel}, `name`=#{name}, email=#{email}
@@ -29,11 +29,11 @@
         DELETE FROM member WHERE NUM=#{num}
     </delete>
 
-    <select id="idCheck" resultType="com.example.mini_shopping.member.model.MemberVO">
+    <select id="idCheck" parameterType="String" resultType="int">
         SELECT count(*) FROM MEMBER WHERE id=#{id}
     </select>
     <select id="loginOK" >
-        SELECT ID FROM WHERE id=#{id} and pw=#{pw}
+        SELECT * FROM WHERE id=#{id}
     </select>
 
 

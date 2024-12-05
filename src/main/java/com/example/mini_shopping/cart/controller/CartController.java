@@ -21,6 +21,7 @@ public class CartController {
     @Autowired
     CartService cartService;
 
+    //장바구니 목록
     @GetMapping("/cartView")
     public String cartView(Model model, HttpSession session, ProductVO vo){
         log.info("my cart view");
@@ -30,11 +31,14 @@ public class CartController {
 
         List<CartVO> list = cartService.cartFindById(id);
 
+        model.addAttribute("list", list);
+
 
         return "cart/cartView";
     }
 
-    @PostMapping("/cart/push")
+    //장바구니 담기
+    @PostMapping("/addCart")
     public String cartPust(HttpSession session, CartVO vo){
 
         cartService.insert(vo);

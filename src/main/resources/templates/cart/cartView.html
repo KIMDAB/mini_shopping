@@ -7,12 +7,11 @@
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
     <div th:each=" list : ${list}">
-        <a th:href="|/board/detail?num=${list.num}|">
+        <a th:href="|/cartView?num=${list.num}|">
             <span th:text="${list.num}"></span>
-            <span th:text="${list.title}"></span>
-            <span th:text="${list.content}"></span>
-            <span th:text="${list.writer}"></span>
-            <span th:text="${list.wdate}"></span>
+            <span th:text="${list.pName}"></span>
+            <span th:text="${list.price}"></span>
+            <a class="delete" th:href="|/cart/delete?num=${list.num}|"></a>
         </a>
     </div>
 </div>

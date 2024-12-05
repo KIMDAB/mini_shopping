@@ -3,7 +3,9 @@
 <mapper namespace="com.example.mini_shopping.cart.mapper.CartMapper">
 
     <select id="cartFindById" resultType="com.example.mini_shopping.cart.model.CartVO">
-        SELECT * FROM CART WHERE ID=#{id}
+        SELECT C.* FROM CART C
+                 JOIN PRODUCT P ON C.pnum = P.num
+                 WHERE ID=#{id}
     </select>
 
     <insert id="insert">

@@ -9,11 +9,13 @@ import java.util.List;
 @Mapper
 public interface CartMapper {
     
-    List<CartVO> cartFindById(String id);
+    List<CartVO> getCart(String user_id);
 
-    void insert(CartVO vo);
+    void addCart(CartVO vo);
 
     void update(CartVO vo);
 
     void delete(CartVO vo);
+
+    int getTotalPrice();
 }

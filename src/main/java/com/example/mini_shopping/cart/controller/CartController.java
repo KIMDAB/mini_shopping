@@ -9,8 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,17 +20,19 @@ public class CartController {
     @Autowired
     CartService cartService;
 
-    //장바구니 목록
-    @GetMapping("/cartView")
-    public String cartView(Model model, HttpSession session, ProductVO vo){
+    //장바구니 조회
+    @GetMapping("/getCart")
+    public String cartView(Model model, ProductVO vo, @RequestParam String user_id){
         log.info("my cart view");
 
-        String id = (String) session.getAttribute("id");
-        log.info("id:{}", id);
 
-        List<CartVO> list = cartService.cartFindById(id);
+        List<CartVO> list = cartService.cartFindById(user_id);
+
+        int getTotal = cartService.getTotalPrice();
+        log.info("getTotal:{}", getTotal);
 
         model.addAttribute("list", list);
+        model.addAttribute("getTotal", getTotal);
 
 
         return "cart/cartView";
@@ -39,11 +40,11 @@ public class CartController {
 
     //장바구니 담기
     @PostMapping("/addCart")
-    public String cartPust(HttpSession session, CartVO vo){
+    public String cartPust(@RequestBody CartVO vo){
 
-        cartService.insert(vo);
+        cartService.addCart(vo);
 
-        return "cart/cartView";
+        return "상품이 장바구니에 추가되었습니다";
     }
 
     @GetMapping("/cart/update")
@@ -59,6 +60,6 @@ public class CartController {
 
         cartService.delete(vo);
 
-        return "rediect:/cart/cartView";
+        return "상품을 장바구에서 삭제하였습니다";
     }
 }

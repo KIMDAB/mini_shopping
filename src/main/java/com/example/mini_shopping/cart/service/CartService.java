@@ -16,16 +16,16 @@ public class CartService {
     @Autowired
     CartMapper cartMapper;
 
-    public List<CartVO> cartFindById(String id) {
+    public List<CartVO> cartFindById(String user_id) {
         log.info("cart view");
 
-        return cartMapper.cartFindById(id);
+        return cartMapper.getCart(user_id);
     }
 
-    public void insert(CartVO vo) {
+    public void addCart(CartVO vo) {
         log.info("cart insert");
 
-        cartMapper.insert(vo);
+        cartMapper.addCart(vo);
     }
 
     public void update(CartVO vo) {
@@ -38,5 +38,12 @@ public class CartService {
         log.info("cart delete");
 
         cartMapper.delete(vo);
+    }
+
+    public int getTotalPrice() {
+        log.info("getTotalPrice" );
+
+        return cartMapper.getTotalPrice();
+
     }
 }

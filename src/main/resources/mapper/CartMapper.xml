@@ -2,19 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mini_shopping.cart.mapper.CartMapper">
 
-    <select id="cartFindById" resultType="com.example.mini_shopping.cart.model.CartVO">
-        SELECT C.* FROM CART C
-                 JOIN PRODUCT P ON C.pnum = P.num
-                 WHERE ID=#{id}
+<!--    방자구니 조회-->
+    <select id="getCart" resultType="com.example.mini_shopping.cart.model.CartVO">
+        SELECT c.*, p.name AS pname, p.price AS price  FROM CART C
+                 JOIN PRODUCT P ON c.pnum = p.num
+                 WHERE user_id = #{user_id}
+    </select>
+<!--   장바구니 총합계산-->
+    <select id="getTotalPrice" resultType="decimal">
+        SELECT SUM(price * quantity) from cart where user_id = #{user_id}
     </select>
 
-    <insert id="insert">
-        INSERT INTO CART(pName, price, count) VALUES (#{pName}, #{price}, #{count})
+<!--    장바구니 추가-->
+    <insert id="addCart">
+        INSERT INTO CART(pName, price, quantity, user_id, pnum) VALUES (#{pName}, #{price}, #{quantity}, #{user_id}, #{pnum})
     </insert>
     <update id="update">
         UPDATE CART SET pName=#{pName}, price=#{price}, count=#{count}
     </update>
-    <delete id="delete">
+    <delete id="delete" parameterType="int">
         DELETE FROM CART WHERE NUM=#{num}
     </delete>
 

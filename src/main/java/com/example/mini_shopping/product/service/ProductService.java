@@ -5,7 +5,12 @@ import com.example.mini_shopping.product.model.ProductVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -29,10 +34,25 @@ public class ProductService {
         return productMapper.getListCnt();
     }
 
-    public int insertOK(ProductVO vo) {
-        log.info("product insertOK");
+    private static final String UPLOAD_DIR = "src/main/resources/static/uploadimgPath/"; // 이미지 업로드 경로
 
-        return productMapper.insertOK(vo);
+    public void addProduct(ProductVO vo) throws IOException {
+        MultipartFile file = vo.getFile();
+
+        if (file != null && !file.isEmpty()) {
+            // 파일 이름 생성
+            String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+            Path path = Paths.get(UPLOAD_DIR + fileName);
+
+            // 파일을 지정된 경로에 저장
+            Files.copy(file.getInputStream(), path);
+
+            // 파일 경로를 ProductVO에 설정
+            vo.setImg_name("/uploadimgPath/" + fileName); // 웹에서 접근할 수 있는 경로로 설정
+        }
+
+        // 데이터베이스에 상품 정보 저장
+        productMapper.insertOK(vo);
     }
 
     public ProductVO selectOne(ProductVO vo) {
@@ -41,8 +61,23 @@ public class ProductService {
         return productMapper.selectOne(vo);
     }
 
-    public int updateOK(ProductVO vo) {
+    public int updateOK(ProductVO vo)throws IOException  {
         log.info("product updateOK");
+
+        MultipartFile file = vo.getFile();
+
+        if (file != null && !file.isEmpty()) {
+            // 파일 이름 생성
+            String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+            Path path = Paths.get(UPLOAD_DIR + fileName);
+
+            // 파일을 지정된 경로에 저장
+            Files.copy(file.getInputStream(), path);
+
+            // 파일 경로를 ProductVO에 설정
+            vo.setImg_name("/uploadimgPath/" + fileName); // 웹에서 접근할 수 있는 경로로 설정
+        }
+
 
         return productMapper.updateOK(vo);
     }
@@ -51,5 +86,19 @@ public class ProductService {
         log.info("product deleteOK");
 
         return productMapper.deleteOK(vo);
+    }
+
+    public List<ProductVO> search( String searchWord, int cpage, int pageBlock) {
+        log.info("search");
+        int totalRows = (cpage -1) * pageBlock;
+        log.info("totalRows", totalRows);
+
+        return productMapper.search(searchWord, totalRows, cpage);
+    }
+
+    public int getsearchCnt() {
+        log.info("getsearchCnt");
+
+       return productMapper.getsearchCnt();
     }
 }

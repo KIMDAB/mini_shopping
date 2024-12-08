@@ -18,4 +18,8 @@ public interface ProductMapper {
     int updateOK(ProductVO vo);
 
     int deleteOK(ProductVO vo);
+
+    List<ProductVO> search( String searchWord, int totalRows, int cpage);
+
+    int getsearchCnt();
 }

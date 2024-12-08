@@ -1,7 +1,5 @@
 package com.example.mini_shopping.product.controller;
 
-import com.example.mini_shopping.member.model.MemberVO;
-import com.example.mini_shopping.member.service.MemberService;
 import com.example.mini_shopping.product.model.ProductVO;
 import com.example.mini_shopping.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +49,22 @@ public class ProdectContoller {
         return "product/list";
     }
 
+    @GetMapping("/product/search")
+    public String search(Model model, @RequestParam int cpage, @RequestParam int pageBlock,
+                         @RequestParam String searchWord){
+        log.info("search");
+
+        List<ProductVO> list = productService.search( searchWord, cpage, pageBlock);
+
+        int totalPages = productService.getsearchCnt();
+        int totalCnt = (int)Math.ceil((double) totalPages/pageBlock);
+
+        model.addAttribute("list", list);
+        model.addAttribute("searchWord", searchWord);
+
+        return "product/list";
+    }
+
     @GetMapping("/product/insert")
     public String insert(){
         log.info("product insert");
@@ -59,49 +73,18 @@ public class ProdectContoller {
     }
 
     @PostMapping("/product/insertOK")
-    public String insertOK(ProductVO vo)throws IllegalStateException, IOException {
+    public String insertOK(ProductVO vo, Model model)throws IllegalStateException, IOException {
         log.info("product insertOK");
 
-        // 스프링프레임워크에서 사용하던 리얼패스사용불가.
-        // String realPath = context.getRealPath("resources/upload_img");
-
-        // @Value("${file.dir}")로 획득한 절대경로 사용해야함.
-        log.info(realPath);
-
-        String originName = vo.getFile().getOriginalFilename();
-        log.info("originName:{}", originName);
-
-        if (originName.length() == 0) {// 넘어온 파일이 없을때 default.png 할당
-            vo.setImg_name("default.png");
-        } else {
-            // 중복이미지 이름을 배제하기위한 처리
-            String save_name = "img_" + System.currentTimeMillis() + originName.substring(originName.lastIndexOf("."));
-            log.info("save_name:{}", save_name);
-            vo.setImg_name(save_name);
-
-            File f = new File(realPath, save_name);
-            vo.getFile().transferTo(f);
-
-            //// create thumbnail image/////////
-            BufferedImage original_buffer_img = ImageIO.read(f);
-            BufferedImage thumb_buffer_img = new BufferedImage(50, 50, BufferedImage.TYPE_3BYTE_BGR);
-            Graphics2D graphic = thumb_buffer_img.createGraphics();
-            graphic.drawImage(original_buffer_img, 0, 0, 50, 50, null);
-
-            File thumb_file = new File(realPath, "thumb_" + save_name);
-
-            ImageIO.write(thumb_buffer_img, save_name.substring(save_name.lastIndexOf(".") + 1), thumb_file);
+        try {
+            // 상품 추가 및 이미지 업로드
+            productService.addProduct(vo);
+            model.addAttribute("message", "상품이 성공적으로 등록되었습니다.");
+        } catch (IOException e) {
+            model.addAttribute("error", "파일 업로드에 실패했습니다.");
         }
 
-
-
-        int result = productService.insertOK(vo);
-
-        if (result ==1){
-            return "redirect:/product/list";
-        }else{
-            return "product/insert";
-        }
+        return "redirect:/product/list"; // 성공 시 결과 페이지
     }
 
     @GetMapping("/product/update")
@@ -120,38 +103,6 @@ public class ProdectContoller {
     public String updateOK(ProductVO vo)throws IllegalStateException, IOException{
         log.info("product updateOK");
 
-        // 스프링프레임워크에서 사용하던 리얼패스사용불가.
-        // String realPath = context.getRealPath("resources/upload_img");
-
-        // @Value("${file.dir}")로 획득한 절대경로 사용해야함.
-        log.info(realPath);
-
-        String originName = vo.getFile().getOriginalFilename();
-        log.info("originName:{}", originName);
-
-        if (originName.length() == 0) {// 넘어온 파일이 없을때 default.png 할당
-            vo.setImg_name("default.png");
-        } else {
-            // 중복이미지 이름을 배제하기위한 처리
-            String save_name = "img_" + System.currentTimeMillis() + originName.substring(originName.lastIndexOf("."));
-            log.info("save_name:{}", save_name);
-            vo.setImg_name(save_name);
-
-            File f = new File(realPath, save_name);
-            vo.getFile().transferTo(f);
-
-            //// create thumbnail image/////////
-            BufferedImage original_buffer_img = ImageIO.read(f);
-            BufferedImage thumb_buffer_img = new BufferedImage(50, 50, BufferedImage.TYPE_3BYTE_BGR);
-            Graphics2D graphic = thumb_buffer_img.createGraphics();
-            graphic.drawImage(original_buffer_img, 0, 0, 50, 50, null);
-
-            File thumb_file = new File(realPath, "thumb_" + save_name);
-
-            ImageIO.write(thumb_buffer_img, save_name.substring(save_name.lastIndexOf(".") + 1), thumb_file);
-        }
-
-
         int result = productService.updateOK(vo);
 
         if (result == 1){
@@ -161,13 +112,13 @@ public class ProdectContoller {
         }
     }
 
-    @PostMapping("/product/deleteOK")
+    @GetMapping("/product/deleteOK")
     public String deleteOK(ProductVO vo){
         log.info("product deleteOK");
 
         int result = productService.deleteOK(vo);
         if (result==1) {
-            return "product/list";
+            return "redirect:/product/list";
         }else{
             return "product/detail?num="+vo.getNum();
         }

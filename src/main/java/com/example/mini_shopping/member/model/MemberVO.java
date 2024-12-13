@@ -14,7 +14,4 @@ public class MemberVO {
     private String tel;
     private String email;
 
-    private String profile;
-    private MultipartFile file;
-
 }

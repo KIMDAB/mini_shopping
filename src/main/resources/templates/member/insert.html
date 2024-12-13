@@ -4,6 +4,53 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            $("#idCheck").click(function () {
+                var id = $("#id").val();  // 사용자가 입력한 아이디 값 가져오기
+
+                // 아이디가 비어 있는지 확인
+                if (id === "") {
+                    $("#result").text("아이디를 입력해주세요.");
+                    return;
+                }
+
+                // AJAX 요청
+                $.ajax({
+                    url: '/idCheck',  // 서버에서 처리할 URL
+                    type: 'GET',      // 요청 방식
+                    data: { id: id }, // 서버로 보낼 데이터 (아이디)
+                    success: function (response) {
+                        $("#result").text(response);
+                    },
+                    error: function () {
+                        // 요청 실패 시 에러 메시지 출력
+                        $("#result").text("에러가 발생했습니다.");
+                    }
+                });
+            });
+        });
+
+        $(function (){
+            $("#submitBtn").click(function (){
+                var pw = $("#pw").val();
+                var id = $("#id").val();
+
+                if (pw == "" && id == ""){
+                    $("#pwResult").text("비밀번호를 입력해주세요");
+                    $("#result").text("아이디를 입력해주세요.");
+                }
+
+            })
+        })
+    </script>
+    <style>
+        #result{
+            font-size: 10px;
+            color: chocolate;
+        }
+    </style>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
@@ -11,12 +58,14 @@
         <p>
             <label for="id">id</label>
             <input th:class="input_a" type="text" name="id" id="id" value="admin">
-            <button id="idcheck">아이디체크</button>
+            <button th:id="idCheck" type="button">아이디체크</button>
+            <span id="result"></span>
         </p>
         <hr width="300px">
         <p>
             <label for="pw">pw</label>
             <input th:class="input_a" type="text" name="pw" id="pw" value="hi1234">
+            <span th:id="pwResult"></span>
         </p>
         <hr width="300px">
         <p>
@@ -34,37 +83,8 @@
             <input th:class="input_a" type="text" name="email" id="email" value="kim@naver.com">
         </p>
         <hr width="300px">
-        <button th:class="loginbtn" type="submit">회원가입</button>
+        <button th:class="submitBtn" type="submit">회원가입</button>
     </form>
 </div>
-
-<script>
-    $(function (){
-        console.log("idcheck")
-        $("#idcheck").click(function (){
-            let url2= "http://localhost:8082/member/insert/idCheck"
-
-            $.ajax ({
-                url : url2,
-                type :"Get",
-                data : {
-                    id : $("#id").val()
-                },
-                dataType : "json",
-                success : function (response){
-                    console.log(response);
-
-                    let message ='';
-                    if (response.result === 'OK'){
-                        message = '사용가능한 아이디입니다';
-                    }else{
-                        message = '중복된 아이디입니다'
-                    }
-                    $("#result").html(message);
-                }
-            })
-        })
-    })
-</script>
 </body>
 </html>

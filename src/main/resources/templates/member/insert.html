@@ -32,18 +32,29 @@
             });
         });
 
-        $(function (){
-            $("#submitBtn").click(function (){
-                var pw = $("#pw").val();
-                var id = $("#id").val();
+        window.onload = function () {
+            const idInput = document.getElementById("id");
+            const pwInput = document.getElementById("pw");
+            const submitBtn = document.getElementById("submitBtn");
 
-                if (pw == "" && id == ""){
-                    $("#pwResult").text("비밀번호를 입력해주세요");
-                    $("#result").text("아이디를 입력해주세요.");
+            function checkInputs(){
+                const id = idInput.value.trim();
+                const pw = pwInput.value.trim();
+
+                if (id && pw){
+                    submitBtn.disabled = false;
+                }else{
+                    submitBtn.disabled = true;
                 }
 
-            })
-        })
+            }
+            idInput.addEventListener("input", checkInputs);
+            pwInput.addEventListener("input", checkInputs);
+
+            checkInputs();
+
+
+        }
     </script>
     <style>
         #result{
@@ -56,34 +67,34 @@
 <div th:fragment="content">
     <form action="/member/insertOK" method="POST" th:class="login">
         <p>
-            <label for="id">id</label>
+            <label for="id">ID</label>
             <input th:class="input_a" type="text" name="id" id="id" value="admin">
-            <button th:id="idCheck" type="button">아이디체크</button>
-            <span id="result"></span>
+            <button th:id="idCheck" type="button">중복체크</button>
         </p>
         <hr width="300px">
+        <span id="result"></span>
         <p>
-            <label for="pw">pw</label>
+            <label for="pw">PW</label>
             <input th:class="input_a" type="text" name="pw" id="pw" value="hi1234">
-            <span th:id="pwResult"></span>
         </p>
         <hr width="300px">
+        <span th:id="pwResult"></span>
         <p>
-            <label for="name">name</label>
+            <label for="name">NAME</label>
             <input th:class="input_a" type="text" name="name" id="name" value="kim11">
         </p>
         <hr width="300px">
         <p>
-            <label for="tel">tel</label>
+            <label for="tel">TEL</label>
             <input th:class="input_a" type="text" name="tel" id="tel" value="010-3304">
         </p>
         <hr width="300px">
         <p>
-            <label for="email">email</label>
+            <label for="email">EMAIL</label>
             <input th:class="input_a" type="text" name="email" id="email" value="kim@naver.com">
         </p>
         <hr width="300px">
-        <button th:class="submitBtn" type="submit">회원가입</button>
+        <button th:id="submitBtn" type="submit" disabled>회원가입</button>
     </form>
 </div>
 </body>

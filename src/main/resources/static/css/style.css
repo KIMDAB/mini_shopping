@@ -64,15 +64,17 @@ textarea{
     margin: 30px;
 }
 
-.submitBtn{
+#submitBtn{
     width: 150px;
     height: 50px;
-    background-color: saddlebrown;
+    background-color: sienna;
     font-size: 15px;
     color: white;
     border: 0;
     outline: 0;
-
+}
+#submitBtn:hover{
+    background-color: saddlebrown;
 }
 
 .login{

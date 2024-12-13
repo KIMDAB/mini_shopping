@@ -113,3 +113,8 @@ textarea{
     align-items: center;
     text-align: center;
 }
+
+#preview{
+    width: 100px;
+    height: 150px;
+}

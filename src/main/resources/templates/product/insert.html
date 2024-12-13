@@ -2,8 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>상품등록 페이지</title>
     <link href="/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function previewImg(event){
+            console.log("img selet");
+
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e){
+                const preview = document.getElementById("preview");
+                preview.src = e.target.result;
+            }
+            if(file && file.type.startsWith('image/')){
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
     <style>
         #body{
             align-items: center;
@@ -25,19 +42,16 @@
 <div th:fragment="content" >
     <form action="/product/insertOK" method="post" id="body">
         <p>
-            <label for="img">상품이미지</label>
-            <input type="image" id="img" name="img">
+            <label for="file">상품이미지</label>
+            <input type="file" id="file" name="file">
+            <img src="" id="preview">
         </p>
         <p>
-            <label for="brandName">브랜드명</label>
-            <input type="text" id="brandName" name="brandName" th:value="LFM">
-        </p>
-        <p>
-            <label for="name">상품명</label>
+            <label for="name">상품명: </label>
             <input type="text" id="name" name="name" th:value="woolcardigon">
         </p>
         <p>
-            <label for="content">상품 설명</label>
+            <label for="content">상품 설명: </label>
             <textarea  id="content" name="content" th:text="길이는100cm"></textarea>
         </p>
         <p>

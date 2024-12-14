@@ -4,16 +4,31 @@
     <meta charset="UTF-8">
     <title>shopping mall</title>
     <link href="/css/style.css">
+    <style>
+
+    </style>
 </head>
 <body>
 <div th:fragment="header">
     <a th:class="index_a" th:href="|/home|">HOME</a>
-    <div th:class="index_div">
-        <a href="/login" th:text="로그인"></a> /
-        <a href="/member/insert" th:text="회원가입"></a>
-    </div>
-    </div>
+    <span th:if="${session.id} == admin">
+        <a th:class="index_a" href="/member/list">MEMBER_LIST</a>
+        <a th:class="index_a" href="/product/insert">PRODUCT SIGN UP</a>
+    </span>
+    <span>
+        <a th:class="index_a" href="/board/list">Notice</a>
+        <a th:class="index_a" href="/product/list">ALL</a>
+    </span>
 
+    <div th:class="index_div">
+        <div th:if="${session.id}==null">
+            <a href="/login" >LOG IN</a> /
+            <a href="/member/insert" >SIGN UP</a>
+        </div>
+        <div th:if="${session.id} !=null">
+            <a href="/logout" >LOG OUT</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

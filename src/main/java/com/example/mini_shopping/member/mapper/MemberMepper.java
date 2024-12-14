@@ -21,7 +21,7 @@ public interface MemberMepper {
 
      
 
-    MemberVO loginOK(MemberVO vo);
+    MemberVO loginOK(String id);
 
     int deleteOK(int num);
 

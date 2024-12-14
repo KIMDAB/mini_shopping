@@ -32,8 +32,8 @@
     <select id="idCheck" resultType="int" parameterType="String">
         SELECT count(*) FROM member WHERE id=#{id}
     </select>
-    <select id="loginOK" >
-        SELECT * FROM member WHERE id=#{id}
+    <select id="loginOK" resultType="com.example.mini_shopping.member.model.MemberVO">
+        SELECT * FROM member WHERE id= #{id}
     </select>
 
 

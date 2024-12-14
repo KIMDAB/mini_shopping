@@ -123,6 +123,40 @@ public class MemberController {
     }
 
 
+    @GetMapping("/login")
+    public String login(HttpSession session){
+        String id = (String) session.getAttribute("id");
+        log.info("login");
+
+        if(id !=null){
+            return "redirect:/";
+        }
+        return "user/login";
+    }
+    @PostMapping("/loginOK")
+    public String loginOK(String id, String pw, HttpSession session){
+        log.info("loginOK");
+
+        String userId = memberService.loginOK(id, pw);
+        log.info("id:{}", id);
+
+        if (userId == null){ //로그인 실패
+            return "redirect:/login";
+        }
+        session.setAttribute("id", userId);
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        log.info("logout");
+
+        session.invalidate();
+
+        return "redirect:/";
+    }
+
+
 
 
 

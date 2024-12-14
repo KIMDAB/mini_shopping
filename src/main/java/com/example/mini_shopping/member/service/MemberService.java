@@ -55,10 +55,14 @@ public class MemberService {
         return count > 0;
     }
 
-    public MemberVO loginOK(MemberVO vo) {
+    public String loginOK(String id, String pw) {
         log.info("loginOK");
+        MemberVO vo = memberMepper.loginOK(id);
+        if (vo.getPw().equals(pw)){
+            return vo.getId();
+        }
 
-        return memberMepper.loginOK(vo);
+        return null;
     }
 
     public int deleteOK(int num) {

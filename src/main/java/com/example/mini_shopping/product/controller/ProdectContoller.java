@@ -2,6 +2,7 @@ package com.example.mini_shopping.product.controller;
 
 import com.example.mini_shopping.product.model.ProductVO;
 import com.example.mini_shopping.product.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -62,12 +63,18 @@ public class ProdectContoller {
         model.addAttribute("list", list);
         model.addAttribute("searchWord", searchWord);
 
-        return "product/list";
+        return "hearder";
     }
 
     @GetMapping("/product/insert")
-    public String insert(){
+    public String insert( HttpSession session, Model model){
         log.info("product insert");
+
+        String id = (String) session.getAttribute("id");
+        log.info("id:{}", id);
+
+        model.addAttribute("session", session);
+        model.addAttribute("id", id);
 
         return "product/insert";
     }

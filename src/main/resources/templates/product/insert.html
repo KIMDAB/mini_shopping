@@ -2,24 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>상품등록 페이지</title>
+    <title>shopping mall</title>
     <link href="/css/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function previewImg(event){
-            console.log("img selet");
 
-            const file = event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function (e){
-                const preview = document.getElementById("preview");
-                preview.src = e.target.result;
-            }
-            if(file && file.type.startsWith('image/')){
-                reader.readAsDataURL(file);
-            }
-        }
     </script>
     <style>
         #body{
@@ -27,41 +14,31 @@
             font-size: 20px;
             justify-items: center;
         }
-        #btn{
-            font-size: 20px;
-            width: 100px;
-            height: 50px;
-            font-weight: bold;
-            background-color: brown;
-            border-radius: 30px;
-        }
 
     </style>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content" >
-    <form action="/product/insertOK" method="post" id="body">
+    <form th:action="@{/product/insertOK}" method="post" id="body" enctype="multipart/form-data">
         <p>
             <label for="file">상품이미지</label>
             <input type="file" id="file" name="file">
             <img src="" id="preview">
         </p>
         <p>
-            <label for="name">상품명: </label>
-            <input type="text" id="name" name="name" th:value="woolcardigon">
+            <input type="text" id="name" name="name" placeholder="상품명을 입력하세요">
         </p>
         <p>
-            <label for="content">상품 설명: </label>
-            <textarea  id="content" name="content" th:text="길이는100cm"></textarea>
+            <textarea  id="content" name="content" placeholder="상품설명을 입력하세요"></textarea>
         </p>
         <p>
             <label for="price">가격</label>
-            <input type="text" id="price" name="price" th:value="218000">
+            <input type="text" id="price" name="price" placeholder="가격을 입력하세요">
         </p>
         <p>
-            <input type="hidden" id="user_id" name="user_id" th:value="admin">
+            <input type="hidden" id="user_id" name="user_id" th:value="${session.id}">
         </p>
-            <button id="submitBtn" type="submit">제출</button>
+            <button id="submitBtn" type="submit">SAVE</button>
     </form>
 </div>
 </body>

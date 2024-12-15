@@ -10,20 +10,18 @@
     text-decoration-color: black;
     text-align: center;
 }
+#body textarea{
+    width: 400px;
+    height: 300px;
+    background-color: antiquewhite;
+        }
 .delete{
     text-decoration-line: none;
     float: right;
     margin-right: 30px;
 }
-.head{
-    font-size: 20px;
-    word-spacing: 20px;
-    margin: 20px;
-    font-weight: bold;
-    background-color: bisque;
- }
 .value{
-    margin-right: 70px;
+    margin: 5px;
 }
 a{
     text-decoration-line: none;
@@ -68,7 +66,7 @@ textarea{
     width: 150px;
     height: 50px;
     background-color: sienna;
-    font-size: 15px;
+    font-size: 13px;
     color: white;
     border: 0;
     outline: 0;
@@ -92,17 +90,18 @@ textarea{
 }
 .index_a{
     border-radius: 30px;
-    background-color: cyan;
+    background-color: burlywood;
     text-decoration-color: black;
-    margin: 10px;
+    margin-left: 10px;
 }
 .index_div{
     border-radius: 30px;
-    background-color: cyan;
+    background-color: burlywood;
     text-decoration-color: black;
     width: 130px;
     margin: 10px;
     float: right;
+    font-size: 15px;
 
 }
 .findpw{
@@ -117,4 +116,17 @@ textarea{
 #preview{
     width: 100px;
     height: 150px;
+}
+#img{
+    width: 300px;
+    height: 500px;
+    padding: 50px 450px;
+    text-align: center;
+    margin: 30px;
+}
+#img_list{
+    width: 200px;
+    height: 300px;
+    margin: 20px;
+    text-align: center;
 }

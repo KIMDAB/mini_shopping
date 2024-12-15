@@ -2,17 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>상품 상세페이지</title>
+    <title>shopping mall</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
     <div class="body-detail">
-        <h3 th:text="'브랜드 명:' +${vo2.brandName}"></h3>
+        <img th:src="${vo2.img_name}">
         <span th:text="${vo2.name}"></span>
         <h5 th:text="'가격: ' +${vo2.price}"></h5>
         <span th:text="'상세내용: ' +${vo2.content}"></span>
     </div>
+    <button th:onclick="|/product/delete?num=${vo2.num}|"> 삭제 </button>
 
 </div>
 

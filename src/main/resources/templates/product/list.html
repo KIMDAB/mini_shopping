@@ -8,16 +8,21 @@
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
     <div th:each="list : ${list}" class="body">
-        <a th:href="@{/product/detail?num=${list.num}}">
+        <a th:href="|/product/detail?num=${list.num}|">
             <img id="img_list" th:src="${list.img_name}">
             <p class="value" th:text="${list.name}"></p>
             <p class="value" th:text="${list.price}"></p>
         </a>
-
-
-
     </div>
 </div>
+    <th:block th:each=" i : ${#numbers.sequence(1, totalCnt)}">
+        <div th:if="param.searchWord == null">
+            <a th:href="|/product/list?cpage=${i}|" th:text="${i}"></a>
+        </div>
+        <div th:if="param.searchWord != null">
+            <a th:href="|/product/list?cpage=${i}|" th:text="${i}"></a>
+        </div>
+    </th:block>
 
 </body>
 </html>

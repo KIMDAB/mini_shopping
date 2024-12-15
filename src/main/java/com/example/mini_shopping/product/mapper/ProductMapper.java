@@ -13,7 +13,7 @@ public interface ProductMapper {
 
     int insertOK(ProductVO vo);
 
-    ProductVO selectOne(ProductVO vo);
+    ProductVO selectOne(int num);
 
     int updateOK(ProductVO vo);
 

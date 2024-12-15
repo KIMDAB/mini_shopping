@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <title>shopping mall</title>
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        img{
+            width: 400px;
+            height: 500px;
+        }
+    </style>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
     <div class="body-detail">
         <img th:src="${vo2.img_name}">
-        <span th:text="${vo2.name}"></span>
-        <h5 th:text="'가격: ' +${vo2.price}"></h5>
-        <span th:text="'상세내용: ' +${vo2.content}"></span>
+        <p th:text="${vo2.name}"></p>
+        <h5 th:text="${vo2.price}+ '원'"></h5>
+        <span th:text="'detail: '+${vo2.content}"></span>
+        <button th:if="${session.id} == admin" th:onclick="|/product/delete?num=${vo2.num}|"> 삭제 </button>
     </div>
-    <button th:onclick="|/product/delete?num=${vo2.num}|"> 삭제 </button>
+
 
 </div>
 

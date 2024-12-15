@@ -34,7 +34,7 @@ public class ProdectContoller {
 
     @GetMapping("/product/list")
     public String list(Model model, @RequestParam(defaultValue = "1")int cpage,
-                       @RequestParam(defaultValue = "10")int pageBlock){
+                       @RequestParam(defaultValue = "8")int pageBlock){
         log.info("product list");
 
         List<ProductVO> list = productService.selectAll(cpage,pageBlock);
@@ -51,7 +51,7 @@ public class ProdectContoller {
     }
 
     @GetMapping("/product/search")
-    public String search(Model model, @RequestParam int cpage, @RequestParam int pageBlock,
+    public String search(Model model, @RequestParam(defaultValue = "1") int cpage, @RequestParam(defaultValue = "8") int pageBlock,
                          @RequestParam String searchWord){
         log.info("search");
 
@@ -63,7 +63,7 @@ public class ProdectContoller {
         model.addAttribute("list", list);
         model.addAttribute("searchWord", searchWord);
 
-        return "hearder";
+        return "product/list";
     }
 
     @GetMapping("/product/insert")
@@ -95,10 +95,10 @@ public class ProdectContoller {
     }
 
     @GetMapping("/product/update")
-    public String update(Model model, ProductVO vo){
+    public String update(Model model, ProductVO vo, @RequestParam int num){
         log.info("product update");
 
-        ProductVO vo2 = productService.selectOne(vo);
+        ProductVO vo2 = productService.selectOne(num);
         log.info("vo2:{}", vo2);
 
         model.addAttribute("vo2", vo2);
@@ -132,12 +132,12 @@ public class ProdectContoller {
     }
 
     @GetMapping("/product/detail")
-    public String detail(Model model, ProductVO vo){
+    public String detail(Model model, ProductVO vo, @RequestParam int num){
         log.info("product detail");
 
         log.info("vo:{}", vo);
 
-        ProductVO vo2 = productService.selectOne(vo);
+        ProductVO vo2 = productService.selectOne(num);
         log.info("vo2:{}", vo2);
 
         model.addAttribute("vo2", vo2);

@@ -9,7 +9,7 @@
         SELECT COUNT(*) FROM MEMBER
     </select>
     <select id="search" resultType="com.example.mini_shopping.product.model.ProductVO">
-        SELECT * FROM product where searchWord=${searchWord}
+        SELECT * FROM product where name LIKE CONCAT('%', #{searchWord}, '%')
     </select>
 
     <select id="getsearchCnt" resultType="int">
@@ -17,7 +17,7 @@
     </select>
 
     <select id="selectOne" resultType="com.example.mini_shopping.product.model.ProductVO">
-        SELECT * FROM product WHERE NUM = #{num}
+        SELECT * FROM product WHERE num = #{num}
     </select>
 
     <insert id="insertOK">

@@ -21,7 +21,8 @@
     margin-right: 30px;
 }
 .value{
-    margin: 5px;
+    padding-bottom: 2px;
+    font-size: 15px;
 }
 a{
     text-decoration-line: none;
@@ -118,7 +119,7 @@ textarea{
     height: 150px;
 }
 #img{
-    width: 300px;
+    width: 400px;
     height: 500px;
     padding: 50px 450px;
     text-align: center;

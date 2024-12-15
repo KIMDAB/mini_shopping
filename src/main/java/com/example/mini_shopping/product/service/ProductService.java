@@ -55,10 +55,10 @@ public class ProductService {
         productMapper.insertOK(vo);
     }
 
-    public ProductVO selectOne(ProductVO vo) {
+    public ProductVO selectOne(int num) {
         log.info("product selectOne");
 
-        return productMapper.selectOne(vo);
+        return productMapper.selectOne(num);
     }
 
     public int updateOK(ProductVO vo)throws IOException  {

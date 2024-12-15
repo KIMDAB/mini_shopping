@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Notice</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body th:replace="~{layout :: layout}">
@@ -15,8 +15,8 @@
         <p>
             <span th:text="${vo2.content}"></span>
         </p>
-
     </div>
+    <button th:if="${session.id}" th:onclick="|if(confirm('정말 삭제하시겠습니까?')) { location.href='/board/deleteOK?num=${vo2.num}';}|">DELTEL</button>
 </div>
 </body>
 </html>

@@ -16,15 +16,11 @@
     <div class="body-detail">
         <img th:src="${vo2.img_name}">
         <p th:text="${vo2.name}"></p>
-        <h5 th:text="${vo2.price}+ '원'"></h5>
-        <span th:text="'detail: '+${vo2.content}"></span>
-        <button th:if="${session.id} == admin" th:onclick="|/product/delete?num=${vo2.num}|"> 삭제 </button>
-        <button th:if="${session.id} == admin" th:onclick="|/product/update?num=${vo2.num}|"> 수정 </button>
-
+        <p class="text-align" th:text="'KRW '+${vo2.price}"></p>
+        <p class="text-align" th:text="'detail: '+${vo2.content}"></p>
+        <button th:if="${session.id} == admin" id="deleteBtn" th:onclick="|if (confirm('정말 수정하시겠습니까?')) { location.href='/product/deleteOK?num=${vo2.num}'; }|"> 삭제 </button>
+        <button th:if="${session.id} == admin"  th:onclick="|location.href='/product/update?num=${vo2.num}'|"> 수정 </button>
     </div>
-
-
 </div>
-
 </body>
 </html>

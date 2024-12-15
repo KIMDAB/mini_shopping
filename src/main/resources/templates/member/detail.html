@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>마이페이지</title>
+    <title>MY PAGE</title>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
@@ -11,22 +11,20 @@
         <label>ID: </label>
         <span th:text="${vo2.id}"></span>
     </div>
-<div>
-    <label>PW: </label>
-    <span th:text="${vo2.pw}"></span>
+    <div>
+        <label>NAME: </label>
+        <span th:text="${vo2.name}"></span>
+    </div>
+    <div>
+        <label>TEL: </label>
+        <span th:text="${vo2.tel}"></span>
+    </div>
+    <div>
+        <label>EMAIL: </label>
+        <span th:text="${vo2.email}"></span>
+    </div>
 </div>
-<div>
-    <label>NAME: </label>
-    <span th:text="${vo2.name}"></span>
-</div>
-<div>
-    <label>TEL: </label>
-    <span th:text="${vo2.tel}"></span>
-</div>
-<div>
-    <label>EMAIL: </label>
-    <span th:text="${vo2.email}"></span>
-</div>
-
+<button type="button" th:onclick="|location.href='/member/update?num='${vo2.num}|">Edit</button>
+<button type="button" th:onclick="|if(confirm('정말 탈퇴하시겠습니까?')){location.href='/member/deleteOK?num='${vo2.num}|">Delete Account</button>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package com.example.mini_shopping.member.service;
 
-import com.example.mini_shopping.member.mapper.MemberMepper;
+import com.example.mini_shopping.member.mapper.MemberMapper;
 import com.example.mini_shopping.member.model.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,12 @@ import java.util.List;
 public class MemberService {
 
     @Autowired
-    MemberMepper memberMepper;
+    MemberMapper memberMapper;
 
     public int insertOK(MemberVO vo) {
         log.info("insertOK");
 
-        return memberMepper.insertOK(vo);
+        return memberMapper.insertOK(vo);
     }
 
     public List<MemberVO> selectAll(int cpage, int pageBlcok) {
@@ -26,38 +26,38 @@ public class MemberService {
 
         int totalRow = (cpage -1)*pageBlcok;
 
-        return memberMepper.selectAll(cpage,totalRow);
+        return memberMapper.selectAll(cpage,totalRow);
     }
 
     public int updateOK(MemberVO vo) {
         log.info("member updateOK");
 
-        return memberMepper.updateOK(vo);
+        return memberMapper.updateOK(vo);
     }
 
     public int getPageCnt() {
         log.info("member list getPageCnt");
 
-        return memberMepper.getPageCnt();
+        return memberMapper.getPageCnt();
     }
 
     public MemberVO selectOne(MemberVO vo) {
         log.info("member selectOne");
 
-        return memberMepper.selectOne(vo);
+        return memberMapper.selectOne(vo);
     }
 
     public boolean idCheck(String id) {
         log.info("idCheck");
 
-        int count = memberMepper.idCheck(id);
+        int count = memberMapper.idCheck(id);
 
         return count > 0;
     }
 
     public String loginOK(String id, String pw) {
         log.info("loginOK");
-        MemberVO vo = memberMepper.loginOK(id);
+        MemberVO vo = memberMapper.loginOK(id);
         if (vo.getPw().equals(pw)){
             return vo.getId();
         }
@@ -68,18 +68,20 @@ public class MemberService {
     public int deleteOK(int num) {
         log.info("member delete");
 
-        return memberMepper.deleteOK(num);
+        return memberMapper.deleteOK(num);
     }
 
-    public void findbyPwOK(MemberVO vo) {
+    public String findbyPwOK(String name, String id, String email) {
         log.info("findbyPwOK");
 
-        memberMepper.findbyPwOK(vo);
+       return memberMapper.findbyPwOK(name, email, id);
     }
 
-    public void findbyIdOK(MemberVO vo) {
+    public String findbyIdOK(String name, String email) {
         log.info("findbyIdOK");
 
-        memberMepper.findbyIdOK(vo);
+        MemberVO vo = memberMapper.findbyIdOK(name, email);
+
+       return vo.getId();
     }
 }

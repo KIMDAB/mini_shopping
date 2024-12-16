@@ -76,7 +76,7 @@ public class MemberController {
         int result = memberService.insertOK(vo);
         log.info("result:{}", result);
         if (result ==1){
-            return "redirect:/product/list";
+            return "redirect:/";
         }else {
             return "member/insert";
         }
@@ -169,12 +169,15 @@ public class MemberController {
         return "user/findbyPw";
     }
     @PostMapping("/user/findbyPwOK")
-    public String findbyPwOK(MemberVO vo){
+    public String findbyPwOK(@RequestParam String name, @RequestParam String email,
+                             @RequestParam String id, Model model ){
         log.info("findbyPwOK");
 
-        memberService.findbyPwOK(vo);
+       String findbyPw=  memberService.findbyPwOK(id, name, email);
+       log.info("findbyPw:{}", findbyPw);
+       model.addAttribute("findbyPw", findbyPw);
 
-        return "redirect:/member/login";
+        return "user/succecefindbyPw";
     }
     @GetMapping("/user/findbyId")
     public String findbyId(){
@@ -183,12 +186,20 @@ public class MemberController {
         return "/user/findbyId";
     }
     @PostMapping("/user/findbyIdOK")
-    public String findbyIdOK(MemberVO vo){
-        log.info("findbyPwOK");
+    public String findbyIdOK(@RequestParam String name, @RequestParam String email,
+                              Model model){
+        log.info("findbyIdOK");
 
-        memberService.findbyIdOK(vo);
+       String findbyId = memberService.findbyIdOK(name, email);
 
-        return "redirect:/member/login";
+        log.info("findbyId:{}", findbyId);
+        model.addAttribute("findbyId", findbyId);
+
+        if (findbyId == null){
+            return "";
+        }
+
+        return "user/succecefindbyId";
     }
 
 

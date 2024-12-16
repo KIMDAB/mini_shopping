@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mini_shopping.member.mapper.MemberMepper">
+<mapper namespace="com.example.mini_shopping.member.mapper.MemberMapper">
 
     <select id="selectAll" resultType="com.example.mini_shopping.member.model.MemberVO">
         SELECT * FROM member ORDER BY num desc
@@ -12,8 +12,8 @@
     <select id="selectOne" resultType="com.example.mini_shopping.member.model.MemberVO">
         SELECT * FROM MEMBER WHERE NUM=#{num}
     </select>
-    <select id="findbyId" resultType="com.example.mini_shopping.member.model.MemberVO">
-        SELECT ID FROM MEMBER WHERE EMAIL=#{email} AND NAME=#{name}
+    <select id="findbyIdOK" resultType="com.example.mini_shopping.member.model.MemberVO">
+        SELECT id FROM MEMBER WHERE EMAIL=#{email} AND NAME=#{name}
     </select>
 
     <insert id="insertOK">

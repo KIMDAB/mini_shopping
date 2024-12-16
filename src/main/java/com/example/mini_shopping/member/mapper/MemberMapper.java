@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface MemberMepper {
+public interface MemberMapper {
 
 
     public int insertOK(MemberVO vo);
@@ -25,9 +25,9 @@ public interface MemberMepper {
 
     int deleteOK(int num);
 
-    void findbyPwOK(MemberVO vo);
+    String findbyPwOK(String name,String id, String email);
 
-    void findbyIdOK(MemberVO vo);
+    MemberVO findbyIdOK(String name, String email);
 
     int idCheck(String id);
 }

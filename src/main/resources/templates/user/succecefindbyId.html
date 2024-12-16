@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FIND ID</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        #result{
+            font-size: 25px;
+            margin: 30px;
+            background-color: antiquewhite;
+            height: 100px;
+            width: 50%;
+            display: grid;
+            place-items: center;
+
+        }
+        #div{
+            text-align: center;
+        }
+    </style>
+</head>
+<body th:replace="~{layout :: layout}">
+<div th:fragment="content" id="div">
+    <div id="result" th:text="'등록된 아이디는 '+ ${findbyId}+ ' 입니다.' "></div>
+</div>
+</body>
+</html>

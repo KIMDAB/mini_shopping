@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FIND PASSWORD</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body th:replace="~{layout :: layout}">
+<div th:fragment="content"  >
+    <span th:text="'등록된 비밀번호는 '+ ${findbyPw}+ ' 입니다.' "></span>
+</div>
+
+</body>
+</html>

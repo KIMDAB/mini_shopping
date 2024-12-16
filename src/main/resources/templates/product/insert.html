@@ -38,8 +38,8 @@
         <p>
             <input type="hidden" id="user_id" name="user_id" th:value="${session.id}">
         </p>
-            <button class="submitBtn" type="submit">SAVE</button>
-        <button class="submitBtn" onclick="history.back()">CANCEL</button>
+            <button id="submitBtn" type="submit">저장</button>
+        <button id="cancel" onclick="history.back()">취소</button>
     </form>
 </div>
 </body>

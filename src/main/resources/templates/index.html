@@ -2,18 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>home</title>
+  <title>SHOPPING</title>
  <link href="/css/style.css" rel="stylesheet">
+    <style>
+        #main{
+            display: grid;
+            place-items: center; /* 가로 및 세로 중앙 정렬 */
+            padding: 20px;
+        }
+    </style>
 </head>
 <body th:replace="~{layout :: layout}">
-<div th:fragment="content">
-    <a th:class="index_a" href="/member/list">회원목록</a>
-  <a th:class="index_a" href="/board/list">게시판목록</a>
-  <a  th:class="index_a" href="/board/insert">게시판 작성</a>
-  <a th:class="index_a" href="/product/list">상품목록</a>
-  <a th:class="index_a" href="/product/insert">상품 작성</a>
-
-
+<div th:fragment="content" id="main">
+    <img src="/img/img.jpg" id="img">
 </div>
 
 </body>

@@ -22,16 +22,13 @@
         </div>
     <hr width="200px">
     </p>
-    <button th:id="submitBtn" type="submit" >LOG IN</button>
+    <button id="submitBtn" type="submit" >LOG IN</button>
 </form>
     <div th:class="align-items">
         <span>
             <a href="/user/findbyId" th:class="findpw">FORGOT ID</a> /
             <a href="/user/findbyPw" th:class="findpw">FORGOT PASSWORD</a>
         </span>
-        <p>
-        <a th:href="@{/kakao}" ><img src="/img/kakao_login_medium_narrow.png"></a>
-        </p>
     </div>
 </div>
 

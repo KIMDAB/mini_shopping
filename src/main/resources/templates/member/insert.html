@@ -35,7 +35,7 @@
         window.onload = function () {
             const idInput = document.getElementById("id");
             const pwInput = document.getElementById("pw");
-            const submitBtn = document.getElementById("submitBtn");
+            const submitBtn = document.getElementBy("submitBtn");
 
             function checkInputs(){
                 const id = idInput.value.trim();
@@ -94,7 +94,7 @@
             <input th:class="input_a" type="text" name="email" id="email" value="kim@naver.com">
         </p>
         <hr width="300px">
-        <button th:class="submitBtn" type="submit" disabled>SIGN UP</button>
+        <button id="submitBtn" type="submit">회원가입</button>
     </form>
 </div>
 </body>

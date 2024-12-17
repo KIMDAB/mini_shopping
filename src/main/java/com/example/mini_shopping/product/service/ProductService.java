@@ -20,12 +20,14 @@ public class ProductService {
     @Autowired
     ProductMapper productMapper;
 
-    public List<ProductVO> selectAll(int cpage, int pageBlock) {
+    public List<ProductVO> selectAll(int page, int limit) {
         log.info("product selectAll");
 
-        int totalRow = (cpage -1) *pageBlock;
+        int offset = (page -1) * limit;
+        log.info("offset:{}", offset);
+        log.info("limit:{}", limit);
 
-        return productMapper.selectAll(cpage, totalRow);
+        return productMapper.selectAll(offset, limit);
     }
 
     public int getListCnt() {
@@ -34,9 +36,27 @@ public class ProductService {
         return productMapper.getListCnt();
     }
 
+    public List<ProductVO> search( String searchWord, int page, int limit) {
+        log.info("search");
+        int offset = (page -1) * limit;
+        log.info("offset:{}", offset);
+        log.info("limit:{}", limit);
+
+        return productMapper.search("%"+searchWord+"%", offset, limit);
+    }
+
+    public int getsearchCnt(String searchWord) {
+        log.info("getsearchCnt");
+        log.info("searchWord:{}", searchWord);
+
+        return productMapper.getsearchCnt("%"+searchWord+"%");
+    }
+
     private static final String UPLOAD_DIR = "src/main/resources/static/uploadimgPath/"; // 이미지 업로드 경로
 
     public void addProduct(ProductVO vo) throws IOException {
+
+        log.info("product insertOK");
         MultipartFile file = vo.getFile();
 
         if (file != null && !file.isEmpty()) {
@@ -88,17 +108,4 @@ public class ProductService {
         return productMapper.deleteOK(vo);
     }
 
-    public List<ProductVO> search( String searchWord, int cpage, int pageBlock) {
-        log.info("search");
-        int totalRows = (cpage -1) * pageBlock;
-        log.info("totalRows", totalRows);
-
-        return productMapper.search(searchWord, totalRows, cpage);
-    }
-
-    public int getsearchCnt() {
-        log.info("getsearchCnt");
-
-       return productMapper.getsearchCnt();
-    }
 }

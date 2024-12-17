@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface ProductMapper {
-    List<ProductVO> selectAll(int cpage, int totalRow);
+    List<ProductVO> selectAll(int offset, int limit);
 
     int getListCnt();
 
@@ -19,7 +19,7 @@ public interface ProductMapper {
 
     int deleteOK(ProductVO vo);
 
-    List<ProductVO> search( String searchWord, int totalRows, int cpage);
+    List<ProductVO> search( String searchWord, int limit, int offset);
 
-    int getsearchCnt();
+    int getsearchCnt(String searchWord);
 }

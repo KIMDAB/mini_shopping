@@ -4,16 +4,19 @@
 
     <select id="selectAll" resultType="com.example.mini_shopping.product.model.ProductVO">
         SELECT * FROM product ORDER BY num desc
+        LIMIT #{offset}, #{limit}
     </select>
     <select id="getListCnt" resultType="int">
-        SELECT COUNT(*) FROM MEMBER
+        SELECT COUNT(*) FROM product
     </select>
     <select id="search" resultType="com.example.mini_shopping.product.model.ProductVO">
         SELECT * FROM product where name LIKE CONCAT('%', #{searchWord}, '%')
+        ORDER BY NUM DESC
+            LIMIT #{offset}, #{limit}
     </select>
 
     <select id="getsearchCnt" resultType="int">
-        SELECT COUNT(*) FROM product WHERE
+        SELECT COUNT(*) FROM product WHERE name LIKE CONCAT('%', #{searchWord}, '%')
     </select>
 
     <select id="selectOne" resultType="com.example.mini_shopping.product.model.ProductVO">

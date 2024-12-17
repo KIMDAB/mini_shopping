@@ -33,35 +33,38 @@ public class ProdectContoller {
 
 
     @GetMapping("/product/list")
-    public String list(Model model, @RequestParam(defaultValue = "1")int cpage,
-                       @RequestParam(defaultValue = "8")int pageBlock){
+    public String list(Model model, @RequestParam(defaultValue = "1")int page,
+                       @RequestParam(defaultValue = "8")int limit){
         log.info("product list");
 
-        List<ProductVO> list = productService.selectAll(cpage,pageBlock);
+        List<ProductVO> list = productService.selectAll(page, limit);
         log.info("list:{}", list);
 
         int totalPages = productService.getListCnt();
-        int totalCnt = (int)Math.ceil((double) totalPages/pageBlock);
+        int totalCnt = (int)Math.ceil((double) totalPages/limit);
 
         model.addAttribute("list", list);
-        model.addAttribute("cpage", cpage);
+        model.addAttribute("page", page);
         model.addAttribute("totalCnt", totalCnt);
 
         return "product/list";
     }
 
     @GetMapping("/product/search")
-    public String search(Model model, @RequestParam(defaultValue = "1") int cpage, @RequestParam(defaultValue = "8") int pageBlock,
+    public String search(Model model, @RequestParam(defaultValue = "1") int page,
+                         @RequestParam(defaultValue = "8") int limit,
                          @RequestParam String searchWord){
         log.info("search");
 
-        List<ProductVO> list = productService.search( searchWord, cpage, pageBlock);
+        List<ProductVO> list = productService.search( searchWord, page, limit);
 
-        int totalPages = productService.getsearchCnt();
-        int totalCnt = (int)Math.ceil((double) totalPages/pageBlock);
+        int totalPages = productService.getsearchCnt(searchWord);
+        int searchtotalCnt = (int)Math.ceil((double) totalPages/limit);
 
         model.addAttribute("list", list);
         model.addAttribute("searchWord", searchWord);
+        model.addAttribute("page", page);
+        model.addAttribute("searchtotalCnt", searchtotalCnt);
 
         return "product/list";
     }

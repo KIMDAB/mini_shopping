@@ -2,12 +2,14 @@ package com.example.mini_shopping.product.mapper;
 
 import com.example.mini_shopping.product.model.ProductVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
 public interface ProductMapper {
-    List<ProductVO> selectAll(int offset, int limit);
+    List<ProductVO> selectAll(@Param("offset") int offset,
+                              @Param("limit") int limit);
 
     int getListCnt();
 
@@ -19,7 +21,9 @@ public interface ProductMapper {
 
     int deleteOK(ProductVO vo);
 
-    List<ProductVO> search( String searchWord, int limit, int offset);
+    List<ProductVO> search(@Param("searchWord") String searchWord,
+                           @Param("offset")int offset,
+                           @Param("limit")int limit);
 
     int getsearchCnt(String searchWord);
 }

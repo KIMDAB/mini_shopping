@@ -20,7 +20,7 @@
     <form action="/product/search" method="get">
         <input type="text" name="searchWord" id="searchWord">
         <button type="submit">검색</button>
-        <hr>
+        <p><hr></p>
     </form>
     <div th:each="list : ${list}" class="body">
         <a th:href="|/product/detail?num=${list.num}|">
@@ -30,13 +30,17 @@
         </a>
     </div>
     <div class="pagination">
-        <th:block th:each=" i : ${#numbers.sequence(1, totalCnt)}" >
-            <div th:if="${param.searchWord == null}">
-                <a th:href="|/product/list?page=${i}|" th:text="${i}"></a>
-            </div>
-            <div th:if="${param.searchWord != null}">
+        <th:block th:if="${param.searchWord == null}">
+            <th:block th:each=" i : ${#numbers.sequence(1, totalCnt)}" >
+                <th:block th:if="${param.searchWord == null}">
+                    <a th:href="|/product/list?page=${i}|" th:text="${i}"></a>
+                </th:block>
+            </th:block>
+        </th:block>
+        <th:block th:if="${param.searchWord != null}">
+            <th:block th:each=" i : ${#numbers.sequence(1, searchtotalCnt)}" >
                 <a th:href="|/product/search?page=${i}&searchWord=${searchWord}|" th:text="${i}"></a>
-            </div>
+            </th:block>
         </th:block>
     </div>
 

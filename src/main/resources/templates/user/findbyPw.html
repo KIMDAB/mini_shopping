@@ -8,6 +8,7 @@
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content"  >
+    <div class="sub-title">FIND PW</div>
     <form action="/user/findbyPwOK" method="post" class="login">
         <p>
             <small>ID</small>
@@ -24,7 +25,7 @@
             <input th:class="input_a" type="text" id="email" name="email">
         </p>
         <hr style="width: 200px">
-        <button class="delete" type="submit">확인</button>
+        <button id="submitBtn" type="submit">확인</button>
     </form>
 
 </div>

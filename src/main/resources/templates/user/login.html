@@ -7,6 +7,7 @@
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content" >
+    <div class="sub-title">LOG IN</div>
 <form action="/loginOK" method="post" class="login" >
     <p>
         <label for="id">ID</label>
@@ -18,7 +19,7 @@
     <p>
         <label for="pw">PASSWORD</label>
         <div>
-            <input class="input_a" type="text" name="pw" id="pw" value="hi1234">
+            <input class="input_a" type="password" name="pw" id="pw" value="hi1234">
         </div>
     <hr width="200px">
     </p>

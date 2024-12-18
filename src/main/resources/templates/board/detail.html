@@ -4,19 +4,40 @@
     <meta charset="UTF-8">
     <title>Notice</title>
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .main{
+            background-color: antiquewhite;
+            text-align: center;
+            margin: 100px;
+            height: 200px;
+            padding: 20px;
+        }
+        .btn{
+            float: right;
+            margin-top: 50px;
+            margin-right: 20px;
+            background-color: burlywood;
+            color: saddlebrown;
+            border: none;
+            font-size: 17px;
+        }
+    </style>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
-    <div class="body">
+    <div class="main">
         <h3 th:text="${vo2.title}"></h3>
         <p>
-            <small th:text="${vo2.wdate}"></small>
+            <small th:text="'게시일: '+${vo2.wdate}"></small>
         </p>
         <p>
-            <span th:text="${vo2.content}"></span>
+            <span id="detail-content" th:text="${vo2.content}"></span>
         </p>
+        <div id="footer-btn">
+            <button class="btn" th:if="${session.id} == ${vo2.writer}" th:onclick="|location.href='/board/deleteOK?num='${vo2.num}|">수정</button>
+            <button class="btn" th:if="${session.id} == ${vo2.writer}" th:onclick="|if(confirm('정말 삭제하시겠습니까?')) { location.href='/board/deleteOK?num=${vo2.num}';}|">삭제</button>
+        </div>
     </div>
-    <button th:if="${session.id}" th:onclick="|if(confirm('정말 삭제하시겠습니까?')) { location.href='/board/deleteOK?num=${vo2.num}';}|">DELTEL</button>
-</div>
+    </div>
 </body>
 </html>

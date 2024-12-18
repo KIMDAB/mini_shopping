@@ -9,6 +9,17 @@
             width: 400px;
             height: 500px;
         }
+        .detail-btn{
+            background-color: sienna;
+            border: none;
+            color: white;
+            width: 50px;
+            height: 30px;
+
+        }
+        .detail-btn:hover{
+             background-color: saddlebrown;
+         }
     </style>
 </head>
 <body th:replace="~{layout :: layout}">
@@ -18,8 +29,8 @@
         <p th:text="${vo2.name}"></p>
         <p class="text-align" th:text="'KRW '+${vo2.price}"></p>
         <p class="text-align" th:text="'detail: '+${vo2.content}"></p>
-        <button th:if="${session.id} == admin" id="deleteBtn" th:onclick="|if (confirm('정말 수정하시겠습니까?')) { location.href='/product/deleteOK?num=${vo2.num}'; }|"> 삭제 </button>
-        <button th:if="${session.id} == admin"  th:onclick="|location.href='/product/update?num=${vo2.num}'|"> 수정 </button>
+        <button th:if="${session.id} == admin" class="detail-btn" th:onclick="|if (confirm('정말 수정하시겠습니까?')) { location.href='/product/deleteOK?num=${vo2.num}'; }|"> 삭제 </button>
+        <button th:if="${session.id} == admin" class="detail-btn" th:onclick="|location.href='/product/update?num=${vo2.num}'|"> 수정 </button>
     </div>
 </div>
 </body>

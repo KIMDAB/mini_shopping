@@ -22,10 +22,10 @@ public class CartService {
         return cartMapper.getCart(user_id);
     }
 
-    public void addCart(CartVO vo) {
+    public void addCart(String pname, int quantity, String user_id, int pnum, int price) {
         log.info("cart insert");
 
-        cartMapper.addCart(vo);
+        cartMapper.addCart(pname, quantity, user_id, pnum, price);
     }
 
     public void update(CartVO vo) {

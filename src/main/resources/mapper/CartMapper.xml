@@ -17,11 +17,13 @@
     <insert id="addCart">
         INSERT INTO CART(pName, price, quantity, user_id, pnum) VALUES (#{pName}, #{price}, #{quantity}, #{user_id}, #{pnum})
     </insert>
+<!--    장바구니 수량 수정-->
     <update id="update">
-        UPDATE CART SET pName=#{pName}, price=#{price}, count=#{count}
+        UPDATE CART SET quantity= #{quantity} WHERE user_id=#{user_id} AND num=#{num}
     </update>
+<!--    장바구니안에 상품 목록 삭제-->
     <delete id="delete" parameterType="int">
-        DELETE FROM CART WHERE NUM=#{num}
+        DELETE FROM CART WHERE user_id=#{user_id} AND NUM=#{num}
     </delete>
 
 </mapper>

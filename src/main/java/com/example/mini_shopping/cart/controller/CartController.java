@@ -40,9 +40,15 @@ public class CartController {
 
     //장바구니 담기
     @PostMapping("/addCart")
-    public String cartPust(@RequestBody CartVO vo){
+    public String cartPust(@RequestParam String pname ,
+                           @RequestParam int quantity,
+                           @RequestParam int price,
+                           @RequestParam int pnum,
+                           HttpSession session){
 
-        cartService.addCart(vo);
+        String user_id = (String) session.getAttribute("id");
+
+        cartService.addCart(pname, quantity, user_id, price, pnum);
 
         return "상품이 장바구니에 추가되었습니다";
     }

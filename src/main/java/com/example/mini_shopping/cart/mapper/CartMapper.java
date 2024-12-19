@@ -11,7 +11,10 @@ public interface CartMapper {
     
     List<CartVO> getCart(String user_id);
 
-    void addCart(CartVO vo);
+    void addCart(String pname,
+                 int quantity,
+                 String user_id,
+                 int price, int pnum);
 
     void update(CartVO vo);
 

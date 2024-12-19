@@ -9,6 +9,6 @@ public class CartVO {
     private int pnum;
     private String pname;
     private int price;
-    private int count;
+    private int quantity;
     private String user_id;
 }

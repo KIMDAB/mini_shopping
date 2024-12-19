@@ -116,9 +116,9 @@ public class ProdectContoller {
         int result = productService.updateOK(vo);
 
         if (result == 1){
-            return "product/detail?num="+vo.getNum();
+            return "redirect:/product/detail?num="+vo.getNum();
         }else{
-            return "product/update?num="+vo.getNum();
+            return "redirect:/product/list";
         }
     }
 

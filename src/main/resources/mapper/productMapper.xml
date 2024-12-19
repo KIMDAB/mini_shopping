@@ -28,7 +28,8 @@
         VALUES( #{name}, #{content}, #{price}, #{user_id}, #{img_name})
     </insert>
     <update id="updateOK">
-        UPDATE product SET brandName=#{brandName}, name=#{name}, price=#{price}, user_id=#{user_id}, img_name=#{img_name}
+        UPDATE product SET name=#{name}, price=#{price}, user_id=#{user_id}, img_name=#{img_name}
+        WHERE NUM =#{num}
     </update>
     <delete id="deleteOK">
         DELETE FROM product WHERE NUM = #{num}

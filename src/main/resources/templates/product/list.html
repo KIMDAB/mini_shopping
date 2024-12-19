@@ -53,7 +53,7 @@
 <div th:fragment="content">
     <div id="search-tap">
         <form action="/product/search" method="get" id="search-form">
-            <input type="text" name="searchWord" id="searchWord">
+            <input type="text" name="searchWord" id="searchWord" th:value="${searchWord}">
             <button id="search-btn" type="submit">🔍</button>
         </form>
     </div>

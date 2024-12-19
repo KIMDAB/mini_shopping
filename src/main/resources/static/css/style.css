@@ -48,16 +48,7 @@ textarea{
     background-color: lightgray;
     font-size: 15px;
 }
-.addCartbtn{
-    border-radius: 20px;
-    width: 150px;
-    height: 40px;
-    font-size: 15px;
-    background-color: lightgray;
-}
-.addCartbtn:hover{
-    background-color: darkgrey;
-}
+
 
 .kakao{
     margin: 30px;

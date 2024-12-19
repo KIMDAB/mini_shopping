@@ -1,9 +1,10 @@
-const submitBtn = document.getElementById('submitBtn');
+
 
 // 아이디 중복체크
 $(function () {
     $("#idCheck").click(function () {
         var id = $("#id").val();  // 사용자가 입력한 아이디 값 가져오기
+        const submitBtn = document.getElementById('submitBtn');
 
         // 아이디가 비어 있는지 확인
         if (id === "") {
@@ -34,6 +35,7 @@ $(function () {
 document.addEventListener('DOMContentLoaded', function () {
     // 폼 요소와 제출 버튼 가져오기
     const form = document.getElementById('signupForm');
+    const submitBtn = document.getElementById('submitBtn');
 
     // 모든 입력 필드를 가져오기
     const inputs = form.querySelectorAll('input[required]');
@@ -70,6 +72,7 @@ $(function (){
 
         const pw = document.getElementById('pw').value;
         const confirmPw = document.getElementById('confirmPw').value;
+        const submitBtn = document.getElementById('submitBtn');
 
         if (pw == confirmPw){
             submitBtn.disabled = false;
@@ -93,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("click")
     // 폼 요소와 제출 버튼 가져오기
     const form = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
 
     // 모든 입력 필드를 가져오기
     const inputs = form.querySelectorAll('input[required]');

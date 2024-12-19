@@ -5,147 +5,56 @@
     <title>SIGN UP</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(function () {
-            $("#idCheck").click(function () {
-                var id = $("#id").val();  // 사용자가 입력한 아이디 값 가져오기
+    <script src="/js/script.js"></script>
 
-                // 아이디가 비어 있는지 확인
-                if (id === "") {
-                    $("#result").text("아이디를 입력해주세요.");
-                    return;
-                }
-
-                // AJAX 요청
-                $.ajax({
-                    url: '/idCheck',  // 서버에서 처리할 URL
-                    type: 'GET',      // 요청 방식
-                    data: { id: id }, // 서버로 보낼 데이터 (아이디)
-                    success: function (response) {
-                        $("#result").text(response);
-                    },
-                    error: function () {
-                        // 요청 실패 시 에러 메시지 출력
-                        $("#result").text("에러가 발생했습니다.");
-                    }
-                });
-            });
-        });
-
-        window.onload = function () {
-            const idInput = document.getElementById("id");
-            const pwInput = document.getElementById("pw");
-            const submitBtn = document.getElementBy("submitBtn");
-
-            function checkInputs(){
-                const id = idInput.value.trim();
-                const pw = pwInput.value.trim();
-
-                if (id && pw){
-                    submitBtn.disabled = false;
-                }else{
-                    submitBtn.disabled = true;
-                }
-
-            }
-            idInput.addEventListener("input", checkInputs);
-            pwInput.addEventListener("input", checkInputs);
-
-            checkInputs();
-
-
-        }
-    </script>
     <style>
-        #result{
-            font-size: 10px;
-            color: chocolate;
-        }
-        #idCheck{
-            width: 70px;
-            height: 30px;
-            margin-left: 20px;
-            background-color: sienna;
-            border: none;
-            color: white;
-        }
+
         label{
             font-size: 17px;
             float: left;
             margin-top: 5px;
-        }
-        .input_a{
-            border: 0;
-            outline: 0;
-            padding: 5px;
-            margin-left: 60px;
-        }
-        .input_b{
-            border: none;
-            padding: 5px;
-            margin-right: 65px;
-            width: 150px;
-        }
-        .input_c{
-            border: none;
-            margin-right: 90px;
-            padding: 5px;
-        }
-        .input_d{
-            border: none;
-            margin-right: 15px;
-            padding: 5px;
-        }
-        .input_e{
-            border: none;
-            margin-right: 50px;
-            padding: 5px;
-        }
-        .input_f{
-            border: none;
-            margin-right: 35px;
-            padding: 5px;
         }
     </style>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
     <div class="sub-title">RESGISTER</div>
-    <form action="/member/insertOK" method="POST" class="Account-form">
+    <form action="/member/insertOK" method="POST" class="Account-form" id="signupForm" >
         <p>
             <label for="id" >아이디*</label>
-            <input th:class="input_a" type="text" name="id" id="id" value="admin">
+            <input th:class="input_a" type="text" name="id" id="id" value="admin" required>
             <button th:id="idCheck" type="button">중복체크</button>
         </p>
         <hr width="300px">
         <span id="result"></span>
         <p>
             <label for="pw">비밀번호*</label>
-            <input th:class="input_b" type="password" name="pw" id="pw" value="hi1234">
+            <input th:class="input_b" type="password" name="pw" id="pw" value="hi1234" required>
         </p>
         <hr width="300px">
         <p>
             <label for="pw">비밀번호 확인*</label>
-            <input th:class="input_c" type="password" name="pw" id="pwCheck" value="hi1234">
+            <input th:class="input_c" type="password" id="confirmPw" value="hi1234" required>
         </p>
         <hr width="300px">
         <span th:id="pwResult"></span>
         <p>
             <label for="name">이름*</label>
-            <input th:class="input_d" type="text" name="name" id="name" value="kim11">
+            <input th:class="input_d" type="text" name="name" id="name" required>
         </p>
         <hr width="300px">
         <p>
             <label for="tel">전화번호*</label>
-            <input th:class="input_e" type="text" name="tel" id="tel" value="010-3304">
+            <input th:class="input_e" type="text" name="tel" id="tel" value="010-3304" required>
         </p>
         <hr width="300px">
         <p>
             <label for="email">이메일*</label>
-            <input th:class="input_f" type="email" name="email" id="email" value="kim@naver.com">
+            <input th:class="input_f" type="email" name="email" id="email" value="kim@naver.com" required>
         </p>
         <hr width="300px">
-        <button id="submitBtn" type="submit">가입하기</button>
+        <p id="errorMessage"></p>
+        <button id="submitBtn" type="submit" disabled>가입하기</button>
     </form>
 </div>
 </body>

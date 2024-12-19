@@ -1,3 +1,5 @@
+const submitBtn = document.getElementById('submitBtn');
+
 // 아이디 중복체크
 $(function () {
     $("#idCheck").click(function () {
@@ -6,6 +8,7 @@ $(function () {
         // 아이디가 비어 있는지 확인
         if (id === "") {
             $("#result").text("아이디를 입력해주세요.");
+            submitBtn.disabled = true;
             return;
         }
 
@@ -16,10 +19,12 @@ $(function () {
             data: {id: id}, // 서버로 보낼 데이터 (아이디)
             success: function (response) {
                 $("#result").text(response);
+                submitBtn.disabled = false;
             },
             error: function () {
                 // 요청 실패 시 에러 메시지 출력
                 $("#result").text("에러가 발생했습니다.");
+                submitBtn.disabled = true;
             }
         });
     });
@@ -29,7 +34,6 @@ $(function () {
 document.addEventListener('DOMContentLoaded', function () {
     // 폼 요소와 제출 버튼 가져오기
     const form = document.getElementById('signupForm');
-    const submitBtn = document.getElementById('submitBtn');
 
     // 모든 입력 필드를 가져오기
     const inputs = form.querySelectorAll('input[required]');
@@ -66,7 +70,6 @@ $(function (){
 
         const pw = document.getElementById('pw').value;
         const confirmPw = document.getElementById('confirmPw').value;
-        const submitBtn = document.getElementById('submitBtn');
 
         if (pw == confirmPw){
             submitBtn.disabled = false;
@@ -90,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("click")
     // 폼 요소와 제출 버튼 가져오기
     const form = document.getElementById('loginForm');
-    const submitBtn = document.getElementById('submitBtn');
 
     // 모든 입력 필드를 가져오기
     const inputs = form.querySelectorAll('input[required]');

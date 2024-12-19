@@ -5,25 +5,36 @@
     <title>shopping mall</title>
     <link href="/css/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-
-    </script>
+    <script src="/js/script.js"></script>
     <style>
-        #body{
+        #product-form{
             align-items: center;
             font-size: 20px;
             justify-items: center;
+            margin-top: 50px;
+            margin-bottom: 100px;
+        }
+        #price, #name {
+            margin: 20px;
+            padding: 10px;
+            font-size: 14px;
+        }
+        textarea{
+            width: 400px;
+            height: 400px;
+            font-size: 13px;
+            background-color: antiquewhite;
         }
 
     </style>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content" >
-    <form th:action="@{/product/insertOK}" method="post" id="body" enctype="multipart/form-data">
+    <div class="sub-title">상품 등록</div>
+    <form th:action="@{/product/insertOK}" method="post" id="product-form" enctype="multipart/form-data">
         <p>
             <label for="file">상품이미지</label>
             <input type="file" id="file" name="file">
-            <img src="" id="preview">
         </p>
         <p>
             <input type="text" id="name" name="name" placeholder="상품명을 입력하세요">
@@ -32,14 +43,15 @@
             <textarea  id="content" name="content" placeholder="상품설명을 입력하세요"></textarea>
         </p>
         <p>
-            <label for="price">가격</label>
+            <label for="price">KRW</label>
             <input type="text" id="price" name="price" placeholder="가격을 입력하세요">
         </p>
+        <p id="errorMessage"></p>
         <p>
             <input type="hidden" id="user_id" name="user_id" th:value="${session.id}">
         </p>
             <button id="submitBtn" type="submit">저장</button>
-        <button id="cancel" onclick="history.back()">취소</button>
+        <button id="cancelBtn" type="button" onclick="history.back()">취소</button>
     </form>
 </div>
 </body>

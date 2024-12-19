@@ -4,26 +4,30 @@
     <meta charset="UTF-8">
     <title>LOG IN</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/script.js"></script>
+
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content" >
     <div class="sub-title">LOG IN</div>
-<form action="/loginOK" method="post" class="login" >
+<form action="/loginOK" method="post" class="login" id="loginForm">
     <p>
         <label for="id">ID</label>
         <div>
-            <input class="input_a" type="text" name="id" id="id" value="admin">
+            <input class="input_a" type="text" name="id" id="id" required>
         </div>
         <hr width="200px">
     </p>
     <p>
         <label for="pw">PASSWORD</label>
         <div>
-            <input class="input_a" type="password" name="pw" id="pw" value="hi1234">
+            <input class="input_a" type="password" name="pw" id="pw" required>
         </div>
     <hr width="200px">
+    <p id="errorMessage"></p>
     </p>
-    <button id="submitBtn" type="submit" >LOG IN</button>
+    <button id="submitBtn" type="submit" disabled >LOG IN</button>
 </form>
     <div th:class="align-items">
         <span>
@@ -32,8 +36,5 @@
         </span>
     </div>
 </div>
-
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
 </body>
 </html>

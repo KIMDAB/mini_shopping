@@ -39,12 +39,12 @@ public class MemberController {
         List<MemberVO> list = memberService.selectAll(cpage,pageBlcok);
         log.info("list:{}", list);
 
-        int totalcnt= memberService.getPageCnt();
-        int totalRow = (int)Math.ceil((double) totalcnt/pageBlcok);
+        int totalRow= memberService.getPageCnt();
+        int totalcnt = (int)Math.ceil((double) totalRow/pageBlcok);
 
         model.addAttribute("list", list);
         model.addAttribute("cpage", cpage);
-        model.addAttribute("totalRow", totalRow);
+        model.addAttribute("totalcnt", totalcnt);
 
         return "member/list";
     }

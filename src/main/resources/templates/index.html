@@ -6,15 +6,18 @@
  <link href="/css/style.css" rel="stylesheet">
     <style>
         #main{
-            display: grid;
-            place-items: center; /* 가로 및 세로 중앙 정렬 */
-            padding: 20px;
+
+            text-align: center;
+        }
+        #img{
+            display: inline-block;
+
         }
     </style>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content" id="main">
-    <img src="/img/img.jpg" id="img">
+    <img src="/img/tree.jpg" id="img">
 </div>
 
 </body>

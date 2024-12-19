@@ -82,3 +82,78 @@ $(function (){
 
     });
 })
+
+//로그인
+//input미입력 시 제출버튼 불기능
+document.addEventListener('DOMContentLoaded', function () {
+
+    console.log("click")
+    // 폼 요소와 제출 버튼 가져오기
+    const form = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // 모든 입력 필드를 가져오기
+    const inputs = form.querySelectorAll('input[required]');
+
+    // 각 입력 필드에서 이벤트 리스너 추가
+    inputs.forEach(input => {
+        input.addEventListener('input', checkForm);
+    });
+
+    // 폼 상태 체크 함수
+    function checkForm() {
+        // 모든 입력 필드가 올바르게 작성되었는지 확인
+        let allFilled = true;
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                allFilled = false;
+                console.log("미입력")
+                $("#errorMessage").text("아이디 또는 비밀번호를 작성해주세요");
+            }
+        });
+
+        // 모든 필드가 작성되었으면 제출 버튼 활성화, 아니면 비활성화
+        submitBtn.disabled = !allFilled;
+    }
+
+    // 폼 초기 상태로 제출 버튼 비활성화
+    checkForm();
+});
+
+
+
+//상품 등록
+document.addEventListener('DOMContentLoaded', function () {
+
+    console.log("click")
+    // 폼 요소와 제출 버튼 가져오기
+    const form = document.getElementById('body');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // 모든 입력 필드를 가져오기
+    const inputs = form.querySelectorAll('input[required]');
+
+    // 각 입력 필드에서 이벤트 리스너 추가
+    inputs.forEach(input => {
+        input.addEventListener('input', checkForm);
+    });
+
+    // 폼 상태 체크 함수
+    function checkForm() {
+        // 모든 입력 필드가 올바르게 작성되었는지 확인
+        let allFilled = true;
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                allFilled = false;
+                console.log("미입력")
+                $("#errorMessage").text("아이디 또는 비밀번호를 작성해주세요");
+            }
+        });
+
+        // 모든 필드가 작성되었으면 제출 버튼 활성화, 아니면 비활성화
+        submitBtn.disabled = !allFilled;
+    }
+
+    // 폼 초기 상태로 제출 버튼 비활성화
+    checkForm();
+});

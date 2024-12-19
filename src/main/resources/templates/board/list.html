@@ -4,18 +4,64 @@
     <meta charset="UTF-8">
     <title>게시판 목록</title>
     <link href="/css/style.css" rel="stylesheet">
+    <style>
+        #main{
+            background-color: antiquewhite;
+            margin-top: 20px;
+        }
+        #writeBtn{
+            float: right;
+            margin-right: 20px;
+            margin-top: 20px;
+            background-color: sienna;
+            border: none;
+            color: white;
+            padding: 8px;
+        }
+        #writeBtn:hover{
+            background-color: saddlebrown;
+        }
+        #searchBtn{
+            border: none;
+            background-color: white;
+        }
+    </style>
 </head>
 <body th:replace="~{layout :: layout}">
-<div th:fragment="content">
-    <div th:each=" list : ${list}" class="body">
-        <a th:href="|/board/detail?num=${list.num}|">
-            <span th:text="${list.num}"></span>
-            <span th:text="${list.title}"></span>
-            <span th:text="${list.content}"></span>
-            <span th:text="${list.wdate}"></span>
-            <a class="delete" th:href="|/board/deleteOK?num=${list.num}|">X</a>
-        </a>
+<div th:fragment="content" >
+    <button id="writeBtn" th:onclick="|location.href='/board/insert'|">WRITE</button>
+    <div>
+        <div class="sub-title">Board</div>
     </div>
+    <form action="/board/search" method="get">
+        <select id="searchKey" name="searchKey">
+            <option value="title" th:selected="${searchKey == 'title'}">제목</option>
+            <option value="content" th:selected="${searchKey == 'content'}">내용</option>
+        </select>
+        <input type="text" id="searchWord" name="searchWord" th:value="${searchWord}">
+        <button type="submit" id="searchBtn">🔍</button>
+    </form>
+    <div id="main">
+        <div th:each=" list : ${list}" class="body">
+            <a th:href="|/board/detail?num=${list.num}|">
+                <span th:text="${list.title}"></span>
+                <span class="date-right" th:text="${list.wdate}"></span>
+            </a>
+        </div>
+    </div>
+    <div class="pagination">
+        <th:block th:if="${searchWord} != null">
+            <th:block th:each=" i : ${#numbers.sequence(1, searchTotalCnt)}">
+                <a th:href="|/board/search?page=${i}&searchKey=${searchKey}&searchWord=${searchWord}|" th:text="${i}"></a>
+            </th:block>
+        </th:block>
+        <th:block th:if="${searchWord} == null">
+            <th:block th:each=" i : ${#numbers.sequence(1, totalCnt)}">
+                <a th:href="|/board/list?page=${i}|" th:text="${i}" ></a>
+            </th:block>
+        </th:block>
+    </div>
+
 </div>
 
 </body>

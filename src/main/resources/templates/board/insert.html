@@ -4,22 +4,31 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="/css/style.css" rel="stylesheet">
+    <style>
+        input{
+            width: 20%;
+        }
+        textarea{
+            width: 40%;
+            height: 200px;
+            background-color: blanchedalmond;
+            text-align: center;
+        }
+    </style>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
     <form action="/board/insertOK" method="post" class="center">
         <p>
-            <label for="title">제목</label>
-            <input type="text" id="title" name="title" value="Notice">
+            <input type="text" id="title" name="title" value="Notice" placeholder="제목을 입력하세요">
         </p>
         <p>
-            <label for="content">내용</label>
-            <textarea id="content" name="content" th:text="관리자만가능"></textarea>
+            <textarea id="content" name="content" th:text="관리자만가능" placeholder="내용을 입력하세요"></textarea>
         </p>
         <p>
             <input type="hidden" id="writer" name="writer" value="admin">
         </p>
-        <button type="submit">작성</button>
+        <button id="submitBtn" type="submit">작성</button>
     </form>
 </div>
 

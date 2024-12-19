@@ -29,6 +29,7 @@
         <p th:text="${vo2.name}"></p>
         <p class="text-align" th:text="'KRW '+${vo2.price}"></p>
         <p class="text-align" th:text="'detail: '+${vo2.content}"></p>
+        <button th:onclick="|/cart/add?pnum=?${vo2.num}|">장바구니 담기</button>
         <button th:if="${session.id} == admin" class="detail-btn" th:onclick="|if (confirm('정말 수정하시겠습니까?')) { location.href='/product/deleteOK?num=${vo2.num}'; }|"> 삭제 </button>
         <button th:if="${session.id} == admin" class="detail-btn" th:onclick="|location.href='/product/update?num=${vo2.num}'|"> 수정 </button>
     </div>

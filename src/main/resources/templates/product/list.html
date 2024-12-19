@@ -13,22 +13,67 @@
             justify-content: center;
             align-items: center;
         }
+        #search-tap{
+            text-align: center;
+        }
+        #search-form{
+            margin: 30px;
+            display: inline-block;
+        }
+        #searchWord{
+            width: 300px;
+            padding: 5px;
+        }
+        #search-btn{
+            border: none;
+            background-color: white;
+        }
+        .main{
+            width: calc(33.33% - 10px); /* 두 개의 열에 맞게 크기 설정 */
+            height: auto;
+        }
+        .value{
+            font-size: 12px;
+        }
+        #container{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px; /* 이미지 간의 간격 */
+            text-align: center;
+            margin: 40px;
+        }
+        #img_list{
+            width: 200px;
+            height: 300px;
+            text-align: center;
+        }
     </style>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
-    <form action="/product/search" method="get">
-        <input type="text" name="searchWord" id="searchWord">
-        <button type="submit">검색</button>
-        <p><hr></p>
-    </form>
-    <div th:each="list : ${list}" class="body">
-        <a th:href="|/product/detail?num=${list.num}|">
-            <img id="img_list" th:src="${list.img_name}">
-            <p class="value" th:text="${list.name}"></p>
-            <p class="value" th:text="${list.price}"></p>
-        </a>
+    <div id="search-tap">
+        <form action="/product/search" method="get" id="search-form">
+            <input type="text" name="searchWord" id="searchWord">
+            <button id="search-btn" type="submit">🔍</button>
+        </form>
     </div>
+
+
+
+
+    <div id="container">
+        <div th:each="list : ${list}" class="main">
+            <a th:href="|/product/detail?num=${list.num}|">
+                <img id="img_list" th:src="${list.img_name}">
+                <p class="value" th:text="${list.name}"></p>
+                <p class="value" th:text="'KRW '+${list.price}"></p>
+            </a>
+        </div>
+    </div>
+
+
+
+
     <div class="pagination">
         <th:block th:if="${param.searchWord == null}">
             <th:block th:each=" i : ${#numbers.sequence(1, totalCnt)}" >

@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
         inputs.forEach(input => {
             if (!input.value.trim()) {
                 allFilled = false;
+                $("#errorMessage").text("입력값을 모두 작성해주세요");
             }
         });
 
@@ -57,21 +58,27 @@ document.addEventListener('DOMContentLoaded', function () {
     checkForm();
 });
 
-//pw != pwCheck 일 때 버튼 불기능
 
+//pw != pwCheck 일 때 버튼 불기능
 $(function (){
     $("#submitBtn").click(function (){
         console.log("click");
 
-        const pw = document.getElementById("pw");
-        const pwCheck = document.getElementById("pwCheck");
+        const pw = document.getElementById('pw').value;
+        const confirmPw = document.getElementById('confirmPw').value;
         const submitBtn = document.getElementById('submitBtn');
 
-        if (pw != pwCheck){
+        if (pw == confirmPw){
+            submitBtn.disabled = false;
+            console.log("비번 일치");
+        }else {
             submitBtn.disabled = true;
             $("#pwResult").text("비밀번호가 일치하지 않습니다");
-        }else {
-            submitBtn.disabled = false;
+            console.log("비번 불일치");
+
         }
-    })
+
+
+
+    });
 })

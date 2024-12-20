@@ -4,14 +4,10 @@
 
 <!--    방자구니 조회-->
     <select id="getCart" resultType="com.example.mini_shopping.cart.model.CartVO">
-        SELECT c.*, p.name AS pname, p.price AS price  FROM CART C
-                 JOIN PRODUCT P ON c.pnum = p.num
-                 WHERE user_id = #{user_id}
+        SELECT * FROM CART WHERE user_id=#{user_id
+        }
     </select>
-<!--   장바구니 총합계산-->
-    <select id="getTotalPrice" resultType="decimal">
-        SELECT SUM(price * quantity) from cart where user_id = #{user_id}
-    </select>
+
 
 <!--    장바구니 추가-->
     <insert id="addCart">

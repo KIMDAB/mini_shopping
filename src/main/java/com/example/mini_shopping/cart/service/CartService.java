@@ -56,16 +56,11 @@ public class CartService {
         cartMapper.update(vo);
     }
 
-    public void delete(CartVO vo) {
+    public void delete(int num, String user_id) {
         log.info("cart delete");
 
-        cartMapper.delete(vo);
+        cartMapper.delete(num, user_id);
     }
 
-    public int getTotalPrice() {
-        log.info("getTotalPrice" );
 
-        return cartMapper.getTotalPrice();
-
-    }
 }

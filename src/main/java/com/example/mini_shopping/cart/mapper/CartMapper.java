@@ -15,7 +15,6 @@ public interface CartMapper {
 
     void update(CartVO vo);
 
-    void delete(CartVO vo);
+    void delete(int num, String user_id);
 
-    int getTotalPrice();
 }

@@ -29,11 +29,8 @@ public class CartController {
 
         List<CartVO> list = cartService.cartFindById(user_id);
 
-        int getTotal = cartService.getTotalPrice();
-        log.info("getTotal:{}", getTotal);
 
         model.addAttribute("list", list);
-        model.addAttribute("getTotal", getTotal);
 
 
         return "cart/cartView";
@@ -60,9 +57,10 @@ public class CartController {
         return "rediect:/cart/cartView";
     }
     @GetMapping("/cart/delete")
-    public String delete(CartVO vo){
+    public String delete(@RequestParam int num,
+                         @RequestParam String user_id){
 
-        cartService.delete(vo);
+        cartService.delete(num, user_id);
 
         return "상품을 장바구에서 삭제하였습니다";
     }

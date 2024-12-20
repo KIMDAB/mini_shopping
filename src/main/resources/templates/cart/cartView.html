@@ -3,15 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>장바구니</title>
+    <style>
+        img{
+            width: 300px;
+            height: 400px;
+        }
+        span{
+            align-items: center;
+        }
+        #cartView{
+            width: 100%;
+            margin: 50px;
+        }
+    </style>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
-    <div th:each=" list : ${list}">
+    <div th:each=" list : ${list}" id="cartView">
         <a th:href="|/cartView?num=${list.num}|">
-            <span th:text="${list.num}"></span>
-            <span th:text="${list.pName}"></span>
+            <input type="checkbox">
+            <img th:src="${list.img_name}">
+            <span th:text="${list.pname}"></span>
             <span th:text="${list.price}"></span>
-            <a class="delete" th:href="|/cart/delete?num=${list.num}|"></a>
+            <a class="delete" th:href="@{/cart/delete?num=${list.num}&user_id=${list.user_id}}"> X</a>
         </a>
     </div>
 </div>

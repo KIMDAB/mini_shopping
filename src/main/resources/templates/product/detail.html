@@ -46,9 +46,24 @@
            width: 80px;
        }
     </style>
-    <scrip>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function checkLoginAndAddToCart() {
+            // sessionId를 템플릿 엔진에서 서버 측으로 가져온 값으로 설정
+            var sessionId = "${session.id}";  // 서버에서 전달된 session.id 값을 가져옵니다.
 
-    </scrip>
+            // sessionId가 null 또는 빈 값일 경우 로그인 페이지로 리디렉션
+            if (!sessionId) {
+                if (confirm("로그인하지 않았습니다. 로그인하시겠습니까?")) {
+                    window.location.href = "/login";  // 로그인 페이지로 리디렉션
+                }
+            } else {
+                // 로그인된 경우 폼을 제출하여 장바구니에 담기
+                document.getElementById("cartForm").submit();
+            }
+        }
+
+    </script>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
@@ -58,15 +73,19 @@
         <p class="text-align" th:text="'KRW '+${vo2.price}"></p>
         <span>
             <form action="/addCart" method="post">
-            <input type="hidden" name="pname" th:value="${vo2.name}">
-            <input type="hidden" name="price" th:value="${vo2.price}">
-            <input type="number" name="quantity" id="quantity" value="1" min="1">
-        </form>
+                <input type="hidden" name="pname" th:value="${vo2.name}">
+                <input type="hidden" name="pnum" th:value="${vo2.num}">
+                <input type="hidden" name="price" th:value="${vo2.price}">
+                <input type="number" name="quantity" id="quantity" value="1" min="1">
+                <input type="hidden" name="img_name" th:value="${vo2.img_name}">
+                <input type="hidden" name="user_id" th:value="${session.id}">
+                <button class="addCartbtn" onclick="checkLoginAndAddToCart()">장바구니 담기</button>
+            </form>
 
         </span>
 
 
-        <button class="addCartbtn" th:onclick="|/addCart?pnum=?${vo2.num}|">장바구니 담기</button>
+
         <p class="text-align" th:text="'detail: '+${vo2.content}"></p>
         <button th:if="${session.id} == admin" class="detail-btn" th:onclick="|if (confirm('정말 수정하시겠습니까?')) { location.href='/product/deleteOK?num=${vo2.num}'; }|"> 삭제 </button>
         <button th:if="${session.id} == admin" class="detail-btn" th:onclick="|location.href='/product/update?num=${vo2.num}'|"> 수정 </button>

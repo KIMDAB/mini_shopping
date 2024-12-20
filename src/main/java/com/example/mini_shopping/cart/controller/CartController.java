@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -21,7 +22,7 @@ public class CartController {
     CartService cartService;
 
     //장바구니 조회
-    @GetMapping("/getCart")
+    @GetMapping("/cartView")
     public String cartView(Model model, ProductVO vo, @RequestParam String user_id){
         log.info("my cart view");
 
@@ -40,17 +41,14 @@ public class CartController {
 
     //장바구니 담기
     @PostMapping("/addCart")
-    public String cartPust(@RequestParam String pname ,
-                           @RequestParam int quantity,
-                           @RequestParam int price,
-                           @RequestParam int pnum,
-                           HttpSession session){
+    public String cartPust(CartVO vo)throws IllegalStateException, IOException {
+        log.info("add cart");
 
-        String user_id = (String) session.getAttribute("id");
 
-        cartService.addCart(pname, quantity, user_id, price, pnum);
+        cartService.addCart(vo);
 
-        return "상품이 장바구니에 추가되었습니다";
+        return "redirect:/cartView?user_id=" +vo.getUser_id();
+        
     }
 
     @GetMapping("/cart/update")

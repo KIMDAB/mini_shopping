@@ -15,7 +15,7 @@
 
 <!--    장바구니 추가-->
     <insert id="addCart">
-        INSERT INTO CART(pName, price, quantity, user_id, pnum) VALUES (#{pName}, #{price}, #{quantity}, #{user_id}, #{pnum})
+        INSERT INTO CART(pname, price, quantity, user_id, pnum, img_name) VALUES (#{pname}, #{price}, #{quantity}, #{user_id}, #{pnum}, #{img_name})
     </insert>
 <!--    장바구니 수량 수정-->
     <update id="update">

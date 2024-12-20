@@ -1,6 +1,7 @@
 package com.example.mini_shopping.cart.model;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class CartVO {
@@ -11,4 +12,7 @@ public class CartVO {
     private int price;
     private int quantity;
     private String user_id;
+
+    private String img_name;
+    private MultipartFile file;
 }

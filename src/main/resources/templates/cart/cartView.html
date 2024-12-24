@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>장바구니</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/script.js"></script>
     <style>
         img{
             width: 300px;
@@ -14,20 +17,99 @@
         #cartView{
             width: 100%;
             margin: 50px;
+
+        }
+        .checkbox-item{
+            accent-color: dodgerblue;
+            width: 1.5em;
+            height: 1.5em;
+            margin-top: -10px;
+            display: block;
+        }
+        #totalCheckbox{
+            accent-color: dodgerblue;
+            width: 1.5em;
+            height: 1.5em;
+            margin-top: 30px;
+
+        }
+        #totalCheck{
+            margin: 5px;
+        }
+        .delete{
+            color: gray;
+        }
+        .p-content{
+            font-size: 25px;
+            place-items: center;
+            margin-left: 50px;
+            margin-bottom: 80px;
+
+        }
+        #total{
+            margin: 50px;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
         }
     </style>
+    <script>
+        $(document).ready(function () { //제이쿼리 선언
+            $("#totalCheckbox").on("change", function () { //agree_all 체크박스의 상태가 바뀔 때
+                var allChk = $("#totalCheckbox").is(":checked"); //agree_all이 체크된 상태면 true, 아니면 false 값을 반환
+                if (allChk) { //agree_all이 체크된 상태라면
+                    $(".checkbox-item").prop("checked", true); //chkControl 클래스 체크박스도 체크된 상태로 만들어줌
+                } else { //agree_all이 체크된 상태가 아니라면
+                    $(".checkbox-item").prop("checked", false); //chkControl 클래스 체크박스도 체크되지 않은 상태로 만들어줌
+                }
+
+                updateTotal();
+            });
+        });
+
+
+        const selectAllCheckbox = document.getElementById('checkbox-item');
+        const itemCheckboxes = document.querySelectorAll('.checkbox-item');
+        const totalElement = document.getElementById('total');
+
+
+        function updateTotal(){
+            let total =0;
+            itemCheckboxes.forEach(checkbox => {
+                if (itemCheckboxes.checked){
+                    total += parseInt(itemCheckboxes.value)
+                }
+            });
+
+            // 개별 항목 체크박스를 클릭했을 때
+            itemCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateTotal); // 선택 상태에 따라 합계 업데이트
+            });
+
+            totalElement.textContent = total;
+        }
+    </script>
+
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
+
+
+
+    <small id="totalCheck">전체선택</small><input id="totalCheckbox" type="checkbox">
+
     <div th:each=" list : ${list}" id="cartView">
-        <a th:href="|/cartView?num=${list.num}|">
-            <input type="checkbox">
+        <a th:href="|/product/detail?num=${list.pnum}|">
+            <input class="checkbox-item" type="checkbox" th:value="${list.price}">
             <img th:src="${list.img_name}">
-            <span th:text="${list.pname}"></span>
-            <span th:text="${list.price}"></span>
-            <a class="delete" th:href="@{/cart/delete?num=${list.num}&user_id=${list.user_id}}"> X</a>
+            <span class="p-content">
+                <span th:text="${list.pname}"></span>
+                <span th:text="${list.price}"></span>
+            </span>
         </a>
+        <a class="delete" th:href="@{/cart/delete?num=${list.num}&user_id=${list.user_id}}"> X</a>
     </div>
+    <p>합계: <span id="total">0</span></p>
 </div>
 
 </body>

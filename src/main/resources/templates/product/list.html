@@ -60,8 +60,12 @@
 
 
 
+    <div th:if="searchtotalCnt ==0">
+        <span th:text="'일치한 검색 결과가 없습니다 총 '+ ${searchtotalCnt}+'건'"></span>
 
-    <div id="container">
+    </div>
+
+    <div id="container" th:if="searchtotalCnt !=0">
         <div th:each="list : ${list}" class="main">
             <a th:href="|/product/detail?num=${list.num}|">
                 <img id="img_list" th:src="${list.img_name}">

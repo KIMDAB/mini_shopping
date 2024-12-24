@@ -47,6 +47,9 @@
             height: 300px;
             text-align: center;
         }
+        strong{
+            margin-left: 50px;
+        }
     </style>
 </head>
 <body th:replace="~{layout :: layout}">
@@ -60,12 +63,10 @@
 
 
 
-    <div th:if="searchtotalCnt ==0">
-        <span th:text="'일치한 검색 결과가 없습니다 총 '+ ${searchtotalCnt}+'건'"></span>
-
+    <div th:if="not ${#strings.isEmpty(searchWord)}">
+        <strong th:text="${searchWord}"></strong>에 대한 검색 결과: <span th:text="${searchtotalCnt}"></span>건
     </div>
-
-    <div id="container" th:if="searchtotalCnt !=0">
+    <div id="container" >
         <div th:each="list : ${list}" class="main">
             <a th:href="|/product/detail?num=${list.num}|">
                 <img id="img_list" th:src="${list.img_name}">

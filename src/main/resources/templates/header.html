@@ -27,6 +27,7 @@
         </div>
         <div th:if="${session.id} !=null">
             <a href="/logout" >LOG OUT</a>
+            <a th:href="|/cartView?user_id=${id}|">🛒</a>
         </div>
     </div>
 </div>

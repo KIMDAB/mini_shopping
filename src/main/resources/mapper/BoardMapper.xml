@@ -4,6 +4,7 @@
 
     <select id="selectAll" resultType="com.example.mini_shopping.board.model.BoardVO">
         SELECT * FROM board order by num desc
+            LIMIT #{offset}, #{limit}
     </select>
     <select id="getListCnt" resultType="int">
         SELECT COUNT(*) FROM BOARD
@@ -11,6 +12,29 @@
 
     <select id="selectOne" resultType="com.example.mini_shopping.board.model.BoardVO">
         SELECT * FROM BOARD WHERE NUM=#{num}
+    </select>
+
+    <select id="search" resultType="com.example.mini_shopping.board.model.BoardVO">
+        SELECT *
+        FROM BOARD
+        <if test="searchKey == 'title'">
+            WHERE title LIKE CONCAT('%',#{searchWord},'%')
+        </if>
+        <if test="searchKey == 'content'">
+            WHERE content LIKE CONCAT('%',#{searchWord},'%')
+        </if>
+        ORDER BY NUM DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="searchGetListCnt" resultType="int">
+        SELECT COUNT(*) FROM BOARD
+        <if test="searchKey == 'title'">
+            WHERE title LIKE CONCAT('%',#{searchWord},'%')
+        </if>
+        <if test="searchKey == 'content'">
+            WHERE content LIKE CONCAT('%',#{searchWord},'%')
+        </if>
     </select>
 
     <insert id="insertOK">

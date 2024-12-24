@@ -21,18 +21,45 @@ public class BoardController {
     BoardService boardService;
 
     @GetMapping("/board/list")
-    public String list(Model model, @RequestParam(defaultValue = "1")int cpage,
-                       @RequestParam(defaultValue = "10")int pageBlock){
+    public String list(Model model, @RequestParam(defaultValue = "1")int page,
+                       @RequestParam(defaultValue = "10")int limit){
         log.info(" board list");
 
-        List<BoardVO> list = boardService.selectAll(cpage, pageBlock);
-        int totallists= boardService.getListCnt();
-        int totalPages = (int)Math.ceil((double)totallists/pageBlock);
+        List<BoardVO> list = boardService.selectAll(page, limit);
         log.info("list:{}", list);
 
+        int totalRow= boardService.getListCnt();
+        int totalCnt = (int)Math.ceil((double)totalRow/limit);
+
         model.addAttribute("list", list);
-        model.addAttribute("cpage", cpage);
-        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("page", page);
+        model.addAttribute("totalCnt", totalCnt);
+
+        return "board/list";
+    }
+
+    @GetMapping("/board/search")
+    public String search(Model model, @RequestParam String searchWord,
+                         @RequestParam String searchKey,
+                         @RequestParam(defaultValue = "1") int page,
+                         @RequestParam(defaultValue = "10") int limit){
+        log.info("/board/search");
+
+        List<BoardVO> list = boardService.search(searchKey, searchWord, page, limit);
+
+        int searchTotalRow =boardService.searchGetListCnt(searchKey, searchWord);
+        int searchTotalCnt = (int) Math.ceil((double) searchTotalRow/limit);
+
+        log.info("searchKey:{}", searchKey);
+        log.info("searchWord:{}", searchWord);
+
+        model.addAttribute("searchKey", searchKey);
+        model.addAttribute("searchWord", searchWord);
+        model.addAttribute("page", page);
+        model.addAttribute("searchTotalCnt", searchTotalCnt);
+        model.addAttribute("list", list);
+
+        log.info("게시판 {}에 대한 {}검색", searchKey,searchWord);
 
         return "board/list";
     }

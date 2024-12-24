@@ -41,6 +41,12 @@
         <input type="text" id="searchWord" name="searchWord" th:value="${searchWord}">
         <button type="submit" id="searchBtn">🔍</button>
     </form>
+
+    <div th:if="not ${#strings.isEmpty(searchWord)}">
+        <strong th:text="${searchWord}"></strong>에 대한 검색 결과: <span th:text="${searchTotalCnt}"></span>건
+    </div>
+
+
     <div id="main">
         <div th:each=" list : ${list}" class="body">
             <a th:href="|/board/detail?num=${list.num}|">
@@ -49,6 +55,9 @@
             </a>
         </div>
     </div>
+
+
+
     <div class="pagination">
         <th:block th:if="${searchWord} != null">
             <th:block th:each=" i : ${#numbers.sequence(1, searchTotalCnt)}">

@@ -15,17 +15,31 @@ public class BoardService {
     @Autowired
     BoardMapper boardMapper;
 
-    public List<BoardVO> selectAll(int cpage, int pageBlock) {
+    public List<BoardVO> selectAll(int page, int limit) {
         log.info("board selectAll");
 
-        int totalRow = (cpage -1)*pageBlock;
+        int offset = (page -1) * limit;
 
-        return boardMapper.selectAll(cpage,totalRow);
+        return boardMapper.selectAll(offset, limit);
     }
 
     public int getListCnt() {
         log.info(" list cnt ");
         return boardMapper.getListCnt();
+    }
+    public List<BoardVO> search(String searchKey, String searchWord, int page, int limit) {
+        log.info("board search");
+
+        int offset = (page-1) * limit;
+        log.info("offset:{}", offset);
+
+        return boardMapper.search("%"+searchWord+"%", searchKey, offset, limit);
+    }
+
+    public int searchGetListCnt(String searchWord, String searchKey) {
+        log.info("searchGetListCnt");
+
+        return boardMapper.searchGetListCnt("%"+searchWord+"%", searchKey);
     }
 
     public int insertOK(BoardVO vo) {
@@ -51,4 +65,6 @@ public class BoardService {
 
         return boardMapper.selectOne(vo);
     }
+
+
 }

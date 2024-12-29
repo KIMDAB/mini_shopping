@@ -1,4 +1,4 @@
-package com.example.mini_shopping.naver;
+package com.example.mini_shopping.kakao;
 
 
 import lombok.Getter;

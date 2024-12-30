@@ -24,10 +24,14 @@ public class kakaopayService {
     private RestTemplate restTemplate = new RestTemplate();
     private  kakaoReadyResponse kakaoReady;
 
+    String cid ="TC0ONETIME";
+    String secret_key = "DEVC53E4A9803C2F46065AC0B3A57757D2F7495A";
+
 
     private HttpHeaders getHeaders(){
+
         HttpHeaders headers = new HttpHeaders();
-        String auth = "SECRET_KEY " + payProperties.getSecretKey();
+        String auth = "SECRET_KEY " + secret_key;
         headers.set("Authorization", auth);
         headers.set("Content-Type", "application/json");
         log.info("headers:{}", headers);
@@ -36,18 +40,18 @@ public class kakaopayService {
     }
 
     //결제 요청
-    public kakaoReadyResponse kakaoPayReady(OrderRequest order,
+    public kakaoReadyResponse kakaoPayReady(
                                             String userId) {
         log.info("kakao ready");
 
         Map<String, Object> parameters = new HashMap<>();
 
-        parameters.put("cid", payProperties.getCid());
-        parameters.put("partner_order_id", order.getOrderId());
+        parameters.put("cid", cid);
+        parameters.put("partner_order_id", 20241230);
         parameters.put("partner_user_id", userId);
-        parameters.put("item_name",order.getItemName() );
-        parameters.put("quantity",order.getQuantity() );
-        parameters.put("total_amount",order.getTotalPrice());
+        parameters.put("item_name", "니트" );
+        parameters.put("quantity", 1 );
+        parameters.put("total_amount", 100);
         parameters.put("vat_amount", "0");
         parameters.put("tax_free_amount", "0" );
         parameters.put("approval_url", "http://localhost:8080/order/pay/completed"); // 결제 성공 시 URL

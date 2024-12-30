@@ -27,8 +27,11 @@ public class kakaoPaycontroller {
 
         String userId = (String) session.getAttribute("id");
 
+        log.info("주문 내용:{}", order);
+        log.info("id:{}", userId);
 
-        return service.kakaoPayReady(order, userId);
+
+        return service.kakaoPayReady(userId);
     }
 
 //    @GetMapping("/order/cancel")

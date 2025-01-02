@@ -57,23 +57,42 @@
            height: 30px;
        }
 
+
+        /* 모달 배경 스타일 */
+        .modal {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        /* 모달 내용 스타일 */
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+        .modal-content button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .modal-content button:hover {
+            background-color: #0056b3;
+        }
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function checkLoginAndAddToCart() {
-            // sessionId를 템플릿 엔진에서 서버 측으로 가져온 값으로 설정
-            var sessionId = "${session.id}";  // 서버에서 전달된 session.id 값을 가져옵니다.
-
-            // sessionId가 null 또는 빈 값일 경우 로그인 페이지로 리디렉션
-            if (!sessionId) {
-                if (confirm("로그인하지 않았습니다. 로그인하시겠습니까?")) {
-                    window.location.href = "/login";  // 로그인 페이지로 리디렉션
-                }
-            } else {
-                // 로그인된 경우 폼을 제출하여 장바구니에 담기
-                document.getElementById("cartForm").submit();
-            }
-        }
 
         $(document).ready(function (){
             $("#btn-pay").click(function (e){
@@ -85,28 +104,62 @@
                 var userId = document.getElementById('userId').value;
 
 
+
                 const order ={
                     itemName: itemName,    // 카카오페이에 보낼 대표 상품명
                     totalPrice: totalPrice,// 총 결제금액
                     quantity: quantity,
                     userId: userId
+                }
+
+                if (userId == null || userId =="") {
+                    // 비로그인 상태일 경우 모달 띄우기
+                    document.getElementById('loginModal').style.display = 'flex';
+
+                }else{
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/payment/order/ready',
+                        contentType: 'application/json',
+                        data: JSON.stringify(order),
+                        success: function (response){
+                            console.log(response);
+                            window.location.href = response.next_redirect_pc_url;
+                        }
+                    })
+
 
 
                 }
 
-                $.ajax({
-                    type: 'POST',
-                    url: '/payment/order/ready',
-                    contentType: 'application/json',
-                    data: JSON.stringify(order),
-                    success: function (response){
-                        console.log(response);
-                        window.location.href = response.next_redirect_pc_url;
-                    }
-                })
 
             })
         })
+
+
+
+
+
+
+
+
+        // 로그인 확인 버튼 클릭 시 로그인 페이지로 이동
+        window.onload= function (){
+            document.getElementById('loginConfirmBtn').onclick = function() {
+
+                console.log("로그인확인버튼클릭 ")
+                // 로그인 페이지로 리다이렉트
+                window.location.href = 'http://localhost:8080/login';  // 로그인 페이지 URL로 이동
+            };
+        }
+
+        // 모달 외부 클릭 시 모달 닫기
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('loginModal')) {
+                document.getElementById('loginModal').style.display = 'none';
+            }
+        };
 
 
     </script>
@@ -136,6 +189,15 @@
         <p class="text-align" th:text="'detail: '+${vo2.content}"></p>
         <button th:if="${session.id} == admin" class="detail-btn" th:onclick="|if (confirm('정말 수정하시겠습니까?')) { location.href='/product/deleteOK?num=${vo2.num}'; }|"> 삭제 </button>
         <button th:if="${session.id} == admin" class="detail-btn" th:onclick="|location.href='/product/update?num=${vo2.num}'|"> 수정 </button>
+    </div>
+
+
+    <!-- 로그인 요청 모달 -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <p>로그인 후 결제를 진행해 주세요.</p>
+            <button id="loginConfirmBtn">확인</button>
+        </div>
     </div>
 </div>
 </body>

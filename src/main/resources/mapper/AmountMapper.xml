@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mini_shopping.order.mapper.AmountMapper">
+
+
+    <select id="getAmountByuserId" resultType="com.example.mini_shopping.order.model.OrderRequest">
+        SELECT * FORM ORDERREQUEST WHERE user_id = #{user_id}
+    </select>
+
+
+    <insert id="insertAmount">
+        INSERT INTO ORDERREQUEST(itemName, orderId, userId, totalprice, quantity)
+        VALUES(#{itemName}, #{orderId}, #{userId}, #{totalprice}, #{quantity})
+    </insert>
+
+
+</mapper>

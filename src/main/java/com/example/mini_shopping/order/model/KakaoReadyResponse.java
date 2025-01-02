@@ -1,10 +1,10 @@
-package com.example.mini_shopping.kakao;
+package com.example.mini_shopping.order.model;
 
 
 import lombok.Data;
 
 @Data
-public class kakaoReadyResponse {
+public class KakaoReadyResponse {
     private String tid;
     private String next_redirect_app_url;
     private String next_redirect_mobile_url;

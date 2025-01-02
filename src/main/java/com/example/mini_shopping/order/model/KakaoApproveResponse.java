@@ -1,4 +1,5 @@
-package com.example.mini_shopping.pay;
+package com.example.mini_shopping.order.model;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +8,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ApproveResponseVO {
+public class KakaoApproveResponse {
+
 
     private String aid;                 // 요청 고유 번호
     private String tid;                 // 결제 고유 번호

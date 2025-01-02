@@ -165,3 +165,36 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+
+$(".btn").click( function (){
+
+    const userId = document.getElementById('idValue').value;
+
+    if (userId == null || userId =="") {
+        // 비로그인 상태일 경우 모달 띄우기
+        document.getElementById('loginModal').style.display = 'flex';
+
+    }
+
+})
+
+
+
+
+// 로그인 확인 버튼 클릭 시 로그인 페이지로 이동
+window.onload= function (){
+    document.getElementById('loginConfirmBtn').onclick = function() {
+
+        console.log("로그인확인버튼클릭 ")
+        // 로그인 페이지로 리다이렉트
+        window.location.href = 'http://localhost:8080/login';  // 로그인 페이지 URL로 이동
+    };
+}
+
+// 모달 외부 클릭 시 모달 닫기
+window.onclick = function(event) {
+    if (event.target === document.getElementById('loginModal')) {
+        document.getElementById('loginModal').style.display = 'none';
+    }
+};

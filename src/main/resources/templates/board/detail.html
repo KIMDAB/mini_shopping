@@ -38,6 +38,8 @@
             <button class="btn" th:if="${session.id} == ${vo2.writer}" th:onclick="|if(confirm('정말 삭제하시겠습니까?')) { location.href='/board/deleteOK?num=${vo2.num}';}|">삭제</button>
         </div>
     </div>
+
+
     </div>
 </body>
 </html>

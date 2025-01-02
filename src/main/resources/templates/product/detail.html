@@ -45,6 +45,18 @@
            font-size: 12px;
            width: 80px;
        }
+       #btn-pay{
+           width: 300px;
+           height: 50px;
+           border: none;
+           background-color: #ffeb00;
+       }
+       #kakaoPay-icon{
+
+           width: 60px;
+           height: 30px;
+       }
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -63,24 +75,59 @@
             }
         }
 
+        $(document).ready(function (){
+            $("#btn-pay").click(function (e){
+                console.log("pay btn click");
+
+                var itemName = document.getElementById('itemName').value;
+                var totalPrice = document.getElementById('totalPrice').value;
+                var quantity = document.getElementById('quantity').value;
+                var userId = document.getElementById('userId').value;
+
+
+                const order ={
+                    itemName: itemName,    // 카카오페이에 보낼 대표 상품명
+                    totalPrice: totalPrice,// 총 결제금액
+                    quantity: quantity,
+                    userId: userId
+
+
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/payment/order/ready',
+                    contentType: 'application/json',
+                    data: JSON.stringify(order),
+                    success: function (response){
+                        console.log(response);
+                        window.location.href = response.next_redirect_pc_url;
+                    }
+                })
+
+            })
+        })
+
+
     </script>
 </head>
 <body th:replace="~{layout :: layout}">
 <div th:fragment="content">
     <div class="body-detail">
         <img th:src="${vo2.img_name}">
-        <p th:text="${vo2.name}"></p>
-        <p class="text-align" th:text="'KRW '+${vo2.price}"></p>
+        <p id="pname" th:text="${vo2.name}"></p>
+        <p id="price" class="text-align" th:text="'KRW '+${vo2.price}"></p>
         <span>
             <form action="/addCart" method="post">
-                <input type="hidden" name="pname" th:value="${vo2.name}">
+                <input type="hidden" id="itemName" name="pname" th:value="${vo2.name}">
                 <input type="hidden" name="pnum" th:value="${vo2.num}">
-                <input type="hidden" name="price" th:value="${vo2.price}">
-                <input type="number" name="quantity" id="quantity" value="1" min="1">
-                <input type="hidden" name="img_name" th:value="${vo2.img_name}">
-                <input type="hidden" name="user_id" th:value="${session.id}">
+                <input type="hidden" id="totalPrice"  name="price" th:value="${vo2.price}">
+                <input type="number" id="quantity" name="quantity "value="1" min="1">
+                <input type="hidden"  name="img_name" th:value="${vo2.img_name}">
+                <input type="hidden" id="userId" name="user_id" th:value="${session.id}">
                 <button class="addCartbtn" onclick="checkLoginAndAddToCart()">장바구니 담기</button>
             </form>
+            <button id="btn-pay"><img id="kakaoPay-icon" src="/img/kakaoPay_icon.png"></button>
 
         </span>
 

@@ -29,8 +29,6 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    @Value("${file.dir}")
-    private String realPath;
 
     @GetMapping("/member/list")
     public String view(Model model, @RequestParam(defaultValue = "1")int cpage,

@@ -9,8 +9,6 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @ToString
 public class OrderRequest {
-
-    int num;
     String userId;
     String orderId;
     String itemName;

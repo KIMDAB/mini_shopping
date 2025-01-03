@@ -55,21 +55,21 @@ public class kakaopayService {
         Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("cid", cid);
-        parameters.put("partner_order_id", "20241230");
-        parameters.put("partner_user_id", orderRequest.getOrderId());
+        parameters.put("partner_order_id", orderRequest.getOrderId());
+        parameters.put("partner_user_id", orderRequest.getUserId());
         parameters.put("item_name",orderRequest.getItemName());
         parameters.put("quantity", orderRequest.getQuantity());
         parameters.put("total_amount", orderRequest.getTotalPrice() );
         parameters.put("vat_amount", "0");
         parameters.put("tax_free_amount", "0" );
-        parameters.put("approval_url", "http://localhost:8080/payment/order/success"); // 결제 성공 시 URL
-        parameters.put("cancel_url", "http://localhost:8080/payment/order/cancel");      // 결제 취소 시 URL
-        parameters.put("fail_url", "http://localhost:8080/payment/order/fail");          // 결제 실패 시 URL
+        parameters.put("approval_url", "http://localhost:8080/order/success"); // 결제 성공 시 URL
+        parameters.put("cancel_url", "http://localhost:8080/product/list");      // 결제 취소 시 URL
+        parameters.put("fail_url", "http://localhost:8080/order/fail");          // 결제 실패 시 URL
 
 
 
 
-        HttpEntity<Map<String, Object>> reauestEntity =
+        HttpEntity<Map<String, Object>> requestEntity =
                 new HttpEntity<>(parameters, this.getHeaders());
 
 
@@ -79,7 +79,7 @@ public class kakaopayService {
 
         kakaoReadyResponse = restTemplate.postForObject(
                 "https://open-api.kakaopay.com/online/v1/payment/ready",
-                reauestEntity,
+                requestEntity,
                 KakaoReadyResponse.class);
 
         log.info("kakaoReadyResponse:{}", kakaoReadyResponse);
@@ -89,16 +89,21 @@ public class kakaopayService {
 
     }
 
-    public KakaoApproveResponse approveResponse(String pgToken, OrderRequest orderRequest2) {
+    public KakaoApproveResponse approveResponse(String pgToken) {
     log.info("approveResponse");
 
+    String userId = (String) session.getAttribute("userId");
+    String orderId = (String) session.getAttribute("orderId");
+
+    log.info("userId:{}", userId);
+    log.info("orderId:{}", orderId);
 
 
     Map<String, String> parameters = new HashMap<>();
         parameters.put("cid", cid);
         parameters.put("tid", kakaoReadyResponse.getTid());
-        parameters.put("partner_order_id", orderRequest2.getOrderId());
-        parameters.put("partner_user_id", orderRequest2.getUserId());
+        parameters.put("partner_order_id", orderId);
+        parameters.put("partner_user_id", userId);
         parameters.put("pg_token", pgToken);
 
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());

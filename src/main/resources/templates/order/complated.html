@@ -5,16 +5,21 @@
     <title>shopping mall</title>
     <link href="/css/style.css" rel="stylesheet">
     <style>
-        span{
+        span, p{
             align-items: center;
             text-align: center;
+            justify-content: center;
+            margin: 300px;
+            background-color: blanchedalmond;
+            width: 60%;
+            height: 100px;
         }
     </style>
 </head>
 <body th:replace="~{layout::layout}">
 <div th:fragment="content">
-<span>상품을 성공적으로 주문 완료하였습니다.</span>
-<p th:text="'주문번호는 '+ ${approve.partner_order_id}+ '입니다'"></p>
+<span th:text="상품을 성공적으로 주문 완료하였습니다."></span>
+<h5 th:text="'주문번호는 '+ ${approve.partner_order_id}+ '입니다'"></h5>
 </div>
 </body>
 </html>

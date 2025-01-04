@@ -11,6 +11,10 @@ import lombok.ToString;
 @ToString
 public class KakaoLoginResponse {
 
+    String token_type;
+    String access_token;
+    String expires_in;
+    String refresh_token;
 
 
 }

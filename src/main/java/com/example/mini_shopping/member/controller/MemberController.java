@@ -67,7 +67,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/insertOK")
-    public String insertOK(MemberVO vo)throws IllegalStateException, IOException{
+    public String insertOK(MemberVO vo)throws IllegalStateException, IOException {
         log.info("회원 등록..OK");
 
 
@@ -79,6 +79,8 @@ public class MemberController {
             return "member/insert";
         }
     }
+
+
     @GetMapping("/member/update")
     public String update(){
         log.info("member update");
@@ -119,43 +121,6 @@ public class MemberController {
        boolean isExist = memberService.idCheck(id);
        return isExist ? "해당 아이디가 존재합니다" : "사용가능한 아이디입니다";
     }
-
-
-    @GetMapping("/login")
-    public String login(HttpSession session){
-        String id = (String) session.getAttribute("id");
-        log.info("login");
-
-        if(id !=null){
-            return "redirect:/";
-        }
-        return "user/login";
-    }
-    @PostMapping("/loginOK")
-    public String loginOK(String id, String pw, HttpSession session){
-        log.info("loginOK");
-
-        String userId = memberService.loginOK(id, pw);
-        log.info("id:{}", id);
-
-        if (userId == null){ //로그인 실패
-            return "redirect:/login";
-        }
-        session.setAttribute("id", userId);
-        return "redirect:/";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session){
-        log.info("logout");
-
-        session.invalidate();
-
-        return "redirect:/";
-    }
-
-
-
 
 
 

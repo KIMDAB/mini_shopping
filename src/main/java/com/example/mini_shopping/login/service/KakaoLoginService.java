@@ -1,12 +1,17 @@
 package com.example.mini_shopping.login.service;
 
-import com.example.mini_shopping.login.model.KakaoLoginApprove;
-import com.example.mini_shopping.login.model.KakaoLoginResponse;
-import com.example.mini_shopping.order.model.KakaoReadyResponse;
+import com.example.mini_shopping.login.model.KakaoAccessTokenResponseVO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -16,17 +21,19 @@ import java.util.Map;
 @Slf4j
 public class KakaoLoginService {
 
-    private KakaoLoginResponse kakaoLoginRespons;
+    private KakaoAccessTokenResponseVO responseVO;
 
-    private String clientId = "3359D49015F0F3551A1E";
-    private String secretKey = "DEV75BA44AC77E1006B8C8655558C873257FBBED";
-    private String clientSecretKey = "7728CE72ED7F1FEF8A49";
+
+    private String clientId = "1b0e39f190fea25e739ad63ab77687ce";
+    private String redirectUrl = "http://localhost:8080/kakao/callback";
+
+
 
     private HttpHeaders getHeader(){
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Host", "open-api.kakaopay.com");
-        headers.set("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+//        headers.set("Host", "open-api.kakaopay.com");
+        headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         log.info("headers:{}", headers);
 
@@ -35,30 +42,51 @@ public class KakaoLoginService {
     }
 
 
-    public KakaoLoginResponse KakaoLoginReadyResponse() {
 
-        log.info("KakaoLogin ReadyResponse");
+// token 발급
+    public String getAccessToken(String code) throws JsonProcessingException {
 
-        Map<String, Object> parameters = new HashMap<>();
+        log.info("getAccessToken");
 
-        parameters.put("grant_type",  );
-        parameters.put("client_id", clientId );
-        parameters.put("gclient_secretrant_type", clientSecretKey );
-        parameters.put("code",  );
-        parameters.put("redirect_uri", "http://localhost:8080/kakao/login/approve" );
+        MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
+        parameters.add("grant_type", "authorization_code");
+        parameters.add("client_id", clientId );
+        parameters.add("redirect_url", redirectUrl);
+        parameters.add("code", code);
 
-        HttpEntity<Map<String, Object>> responseEntity = new HttpEntity<>(parameters, this.getHeader());
+
+        log.info("parameters:{}", parameters);
 
         RestTemplate restTemplate = new RestTemplate();
 
-        kakaoLoginRespons = restTemplate.postForObject(
-                "https://open-api.kakaopay.com/oauth/token",
-                responseEntity,
-                KakaoLoginResponse.class
+        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(parameters ,this.getHeader());
+
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                "https://kauth.kakao.com/oauth/token",
+                HttpMethod.POST,
+                httpEntity,
+                String.class
+
         );
 
-        return ;
+        log.info("");
+        log.info("responseEntity:{}....", responseEntity);
+        log.info("");
+
+        String responseBody = responseEntity.getBody();
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(responseBody);
+
+        log.info("accessToken:{}", jsonNode.get("access_token").asText());
+
+
+        return jsonNode.get("access_token").asText();
+
+
     }
 
 
-}
+
+
+}//end

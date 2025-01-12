@@ -1,26 +1,32 @@
 package com.example.mini_shopping.login.controller;
 
 
-import com.example.mini_shopping.login.model.KakaoLoginResponse;
+import com.example.mini_shopping.login.model.KakaoAccessTokenResponseVO;
+import com.example.mini_shopping.login.model.KakaoUserInfoResponseVO;
 import com.example.mini_shopping.login.service.KakaoLoginService;
-import com.example.mini_shopping.member.model.MemberVO;
 import com.example.mini_shopping.member.service.MemberService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import java.util.Map;
 
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
+
+//    https://soni-developer.tistory.com/275
+//    https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api
 
     @Autowired
     MemberService memberService;
@@ -53,10 +59,22 @@ public class LoginController {
     }
 
     @GetMapping("/kakao/callback")
-    public void callback(@RequestParam("code") String code){
+    public String callback(@RequestParam("code") String code,
+                                      HttpServletResponse response,
+                           KakaoUserInfoResponseVO vo) throws JsonProcessingException {
         log.info("kakao callback");
 
-        loginService.getAccessToken(code);
+//            1. 인가코드 받기
+//            코드 발급 후 redirect URL로 이동
+//            2. 인가코드로 토큰 발급
+        String accessToken = loginService.getAccessToken(code);
+
+//        3. 토큰을 이용해 사용자 정보 조회
+        log.info("KakaoUserInfoResponseVO:{}", vo);
+        KakaoUserInfoResponseVO userInfo = loginService.getUserInfo(accessToken);
+        log.info("유저 정보:{}", userInfo);
+
+        return "redirect:/";
     }
 
 
@@ -79,6 +97,18 @@ public class LoginController {
         log.info("logout");
 
         session.invalidate();
+
+
+
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/kakao/logout")
+    public String kakaoLogout(@RequestParam("ACCESS_TOKEN") String accessToken){
+        log.info("kakao logout");
+
+        loginService.kakaoLogout(accessToken);
 
         return "redirect:/";
     }

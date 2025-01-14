@@ -23,7 +23,9 @@
             width: 300px;
             height: 50px;
             border: none;
-            background-color: #ffeb00;
+        }
+        #kakao-login-icon{
+
         }
     </style>
 
@@ -50,7 +52,9 @@
     </p>
     <button id="submitBtn" type="submit" disabled >LOG IN</button>
 </form>
-    <a th:href="${kakaoRedirectUrl}"><img src="/img/kakao_login_medium_narrow.png"></a>
+    <div th:class="align-items">
+        <a id="kakaoLoginbtn" th:href="${kakaoRedirectUrl}"><img id="kakao-login-icon" src="/img/kakao_login_medium_narrow.png"></a>
+    </div>
     <div th:class="align-items">
         <span>
             <a href="/user/findbyId" th:class="findpw">FORGOT ID</a> /

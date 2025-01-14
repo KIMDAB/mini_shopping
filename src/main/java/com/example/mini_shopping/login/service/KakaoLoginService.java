@@ -1,12 +1,13 @@
 package com.example.mini_shopping.login.service;
 
+import com.example.mini_shopping.login.mapper.KakaoMapper;
 import com.example.mini_shopping.login.model.KakaoAccessTokenResponseVO;
 import com.example.mini_shopping.login.model.KakaoUserInfoResponseVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.json.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,12 +17,15 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
 public class KakaoLoginService {
+
+    @Autowired
+    KakaoMapper kakaoMapper;
 
     private KakaoAccessTokenResponseVO responseVO;
 
@@ -93,6 +97,7 @@ public class KakaoLoginService {
     KakaoUserInfoResponseVO userInfo = new KakaoUserInfoResponseVO();
 
 
+    //kakao 사용자 정보 가져오기
     public KakaoUserInfoResponseVO getUserInfo(String accessToken) throws JsonProcessingException {
 
         log.info("getUserInfo");
@@ -125,13 +130,38 @@ public class KakaoLoginService {
         log.info("");
         log.info("");
 
-        log.info("[ Kakao Service ] Auth ID ---> {} ", response.getBody().getId());
-        log.info("[ Kakao Service ] NickName ---> {} ", response.getBody().getKakao_account().getProfile().getNickname());
-        log.info("[ Kakao Service ] ProfileImageUrl ---> {} ", response.getBody().getKakao_account().getProfile().getProfile_image_url());
+        long userId = response.getBody().getId();
+        String userName = response.getBody().getKakao_account().getProfile().getNickname();
+        String userEmail = response.getBody().getKakao_account().getEmail();
+        String state = "kakao";
+
+        List<Object> list = new ArrayList<>();
+        list.add(userId);
+        list.add(userName);
+        list.add(userEmail);
+        list.add(state);
+
+
+        log.info(" [ 사용자 정보 확인 ] ---> :{}", list);
+
+
+        log.info("[ Kakao Service ] Auth ID ---> {} ", userId);
+        log.info("[ Kakao Service ] NickName ---> {} ", userName);
+        log.info("[ Kakao Service ] Email ---> {} ", userEmail);
+
+        //쇼핑몰 회원등록 확인 --> 갯수가 0이면 회원등록됨
+        int count = kakaoMapper.findByid(userId);
+
+        if (count == 0){
+            kakaoMapper.save(userId, userEmail, userName, state);
+        }
+
+
 
         return response.getBody();
     }
 
+    //kakao 로그아웃 Service
     public void kakaoLogout(String accessToken) {
         log.info("kakao logout");
 

@@ -3,6 +3,7 @@ package com.example.mini_shopping.login.service;
 import com.example.mini_shopping.login.mapper.KakaoMapper;
 import com.example.mini_shopping.login.model.KakaoAccessTokenResponseVO;
 import com.example.mini_shopping.login.model.KakaoUserInfoResponseVO;
+import com.example.mini_shopping.member.model.MemberVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -98,7 +99,7 @@ public class KakaoLoginService {
 
 
     //kakao 사용자 정보 가져오기
-    public KakaoUserInfoResponseVO getUserInfo(String accessToken) throws JsonProcessingException {
+    public long getUserInfo(String accessToken) throws JsonProcessingException {
 
         log.info("getUserInfo");
 
@@ -126,7 +127,7 @@ public class KakaoLoginService {
 
         log.info("");
         log.info("");
-        log.info("user response ---> {}", response);
+        log.info(" [사용자 정보 응답] ---> {}", response);
         log.info("");
         log.info("");
 
@@ -158,7 +159,7 @@ public class KakaoLoginService {
 
 
 
-        return response.getBody();
+        return response.getBody().getId();
     }
 
     //kakao 로그아웃 Service
@@ -186,5 +187,14 @@ public class KakaoLoginService {
 
 
 
+    }
+
+    public String loginOK(long userInfo) {
+        log.info(" 등록된 kakao ID 확인 ");
+        MemberVO vo = kakaoMapper.KaKaoLoginOK(userInfo);
+
+        log.info("[ kakao service id check ]:{}", vo.getId());
+
+        return vo.getId();
     }
 }//end

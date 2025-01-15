@@ -4,6 +4,7 @@ package com.example.mini_shopping.login.controller;
 import com.example.mini_shopping.login.model.KakaoAccessTokenResponseVO;
 import com.example.mini_shopping.login.model.KakaoUserInfoResponseVO;
 import com.example.mini_shopping.login.service.KakaoLoginService;
+import com.example.mini_shopping.member.model.MemberVO;
 import com.example.mini_shopping.member.service.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,6 +35,9 @@ public class LoginController {
 
     @Autowired
     KakaoLoginService loginService;
+
+    @Autowired
+    HttpSession session;
 
 
     String clientId = "1b0e39f190fea25e739ad63ab77687ce";
@@ -60,7 +65,6 @@ public class LoginController {
 
     @GetMapping("/kakao/callback")
     public String callback(@RequestParam("code") String code,
-                                      HttpServletResponse response,
                            KakaoUserInfoResponseVO vo) throws JsonProcessingException {
         log.info("kakao callback");
 
@@ -71,15 +75,28 @@ public class LoginController {
 
 //        3. 토큰을 이용해 사용자 정보 조회
         log.info("KakaoUserInfoResponseVO:{}", vo);
-        KakaoUserInfoResponseVO userInfo = loginService.getUserInfo(accessToken);
-        log.info("유저 정보:{}", userInfo);
+
+        long userInfo = loginService.getUserInfo(accessToken);
+        log.info(" [kakao 회원 ID ]:{}", userInfo);
+
+//        String kakaoLoginUrl = "https://kauth.kakao.com/oauth/authorize?response_type=code" +
+//                "&client_id=" + clientId +
+//                "&redirect_uri=" + redirectUrl +
+//                "&prompt=select_account\n";
+
+        String userId = loginService.loginOK(userInfo);
+        log.info(" [ kakao userId ]--> :{}", userId);
+
+        //세션에 id 저장
+        session.setAttribute("id", userId);
+
 
         return "redirect:/";
     }
 
 
     @PostMapping("/loginOK")
-    public String loginOK(String id, String pw, HttpSession session){
+    public String loginOK(String id, String pw){
         log.info("loginOK");
 
         String userId = memberService.loginOK(id, pw);

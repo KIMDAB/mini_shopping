@@ -79,11 +79,6 @@ public class LoginController {
         long userInfo = loginService.getUserInfo(accessToken);
         log.info(" [kakao 회원 ID ]:{}", userInfo);
 
-//        String kakaoLoginUrl = "https://kauth.kakao.com/oauth/authorize?response_type=code" +
-//                "&client_id=" + clientId +
-//                "&redirect_uri=" + redirectUrl +
-//                "&prompt=select_account\n";
-
         String userId = loginService.loginOK(userInfo);
         log.info(" [ kakao userId ]--> :{}", userId);
 

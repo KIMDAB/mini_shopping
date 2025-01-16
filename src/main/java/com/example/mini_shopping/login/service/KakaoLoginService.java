@@ -36,22 +36,12 @@ public class KakaoLoginService {
 
 
 
-    private HttpHeaders getHeader(){
-
-        HttpHeaders headers = new HttpHeaders();
-//        headers.set("Host", "open-api.kakaopay.com");
-        headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-        log.info("headers:{}", headers);
-
-        return headers;
-
-    }
-
-
-
 // token 발급
     public String getAccessToken(String code) throws JsonProcessingException {
+
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         log.info("getAccessToken");
 
@@ -66,7 +56,7 @@ public class KakaoLoginService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(parameters ,this.getHeader());
+        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(parameters ,headers);
 
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(
@@ -113,8 +103,9 @@ public class KakaoLoginService {
         parameters.add("target_id_type", "user_id");
         parameters.add("target_id", userInfo.getId() );
 
+        log.info("");
         log.info("user parameters:{}", parameters);
-
+        log.info("");
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -172,7 +163,7 @@ public class KakaoLoginService {
 
 
         RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<?> httpEntity = new HttpEntity<>(getHeader());
+        HttpEntity<?> httpEntity = new HttpEntity<>(headers);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(
                 "https://kapi.kakao.com/v1/user/logout",

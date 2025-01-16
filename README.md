@@ -12,9 +12,19 @@
 
 
 ### 기능 소개 
-- 간편 결제 기능
-- 간편 로그인 기능
+- 카카오 로그인 REST API 연동
+- 카카오 페이 REST API 연동
 - 검색 기능
 - 게시판, 상품 CRUD
 - 장바구니 기능
+
+
+###ERD
+
+![mini_shopping](https://github.com/user-attachments/assets/05441d1f-f835-48f4-8a12-628142109550)
+
+
+
+
+  
  

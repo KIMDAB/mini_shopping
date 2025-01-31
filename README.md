@@ -19,7 +19,7 @@
 - 장바구니 기능
 
 
-###ERD
+### ERD
 
 ![mini_shopping](https://github.com/user-attachments/assets/05441d1f-f835-48f4-8a12-628142109550)
 
